@@ -41,9 +41,15 @@
 
 import math
 
-s = "ACGATACAA"
-arr = [0.129]
+# s = "ACGATACAA"
+# # arr = [0.129]
 # arr = [0.129, 0.287, 0.423, 0.476, 0.641, 0.742, 0.783]
+
+with open("c:/Users/Matt/downloads/rosalind_prob.txt") as f: 
+    string = f.readlines()
+
+s = string[0]
+arr = (string[1].split())
 
 def rand_string_calc(s, arr):
 
@@ -55,7 +61,8 @@ def rand_string_calc(s, arr):
     A = (s.count('A'))
     T = (s.count('T'))
 
-    print(math.log10(GC**(C+G)) + (math.log10(AT ** (A+T))))
+    result = (math.log10(GC**(C+G)) + (math.log10(AT ** (A+T))))
+    print("%0.3f" % result, end=' ')
 
 for x in arr:
-    rand_string_calc(s, x)
+    rand_string_calc(s, float(x))
