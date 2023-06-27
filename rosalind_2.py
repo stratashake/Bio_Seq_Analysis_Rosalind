@@ -39,30 +39,50 @@
 #Problem 28
 #Introduction to Random Strings
 
-import math
+# import math
 
-# s = "ACGATACAA"
-# # arr = [0.129]
-# arr = [0.129, 0.287, 0.423, 0.476, 0.641, 0.742, 0.783]
+# # s = "ACGATACAA"
+# # # arr = [0.129]
+# # arr = [0.129, 0.287, 0.423, 0.476, 0.641, 0.742, 0.783]
 
-with open("c:/Users/Matt/downloads/rosalind_prob.txt") as f: 
-    string = f.readlines()
+# with open("c:/Users/Matt/downloads/rosalind_prob.txt") as f: 
+#     string = f.readlines()
 
-s = string[0]
-arr = (string[1].split())
+# s = string[0]
+# arr = (string[1].split())
 
-def rand_string_calc(s, arr):
+# def rand_string_calc(s, arr):
 
-    GC = (arr/2)
-    AT = ((1 - arr) / 2)
+#     GC = (arr/2)
+#     AT = ((1 - arr) / 2)
 
-    C = (s.count('C'))
-    G = (s.count('G'))
-    A = (s.count('A'))
-    T = (s.count('T'))
+#     C = (s.count('C'))
+#     G = (s.count('G'))
+#     A = (s.count('A'))
+#     T = (s.count('T'))
 
-    result = (math.log10(GC**(C+G)) + (math.log10(AT ** (A+T))))
-    print("%0.3f" % result, end=' ')
+#     result = (math.log10(GC**(C+G)) + (math.log10(AT ** (A+T))))
+#     print("%0.3f" % result, end=' ')
 
-for x in arr:
-    rand_string_calc(s, float(x))
+# for x in arr:
+#     rand_string_calc(s, float(x))
+
+######################################################################################################
+#Problem 29
+#Enumerating Oriented Gene Orderings 
+
+from itertools import permutations, product
+
+def signedperms(items):
+    for p in permutations(items):
+        for signs in product([-1,1], repeat=len(items)):
+            yield [a*sign for a,sign in zip(p,signs)]
+
+n = 4
+
+result = list(signedperms(range(1, n+1)))
+
+print(len(result))
+for item in result:
+    print(' '.join(map(str, item)))
+
