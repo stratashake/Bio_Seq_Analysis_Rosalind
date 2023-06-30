@@ -71,18 +71,50 @@
 #Problem 29
 #Enumerating Oriented Gene Orderings 
 
-from itertools import permutations, product
+# from itertools import permutations, product
 
-def signedperms(items):
-    for p in permutations(items):
-        for signs in product([-1,1], repeat=len(items)):
-            yield [a*sign for a,sign in zip(p,signs)]
+# def signedperms(items):
+#     for p in permutations(items):
+#         # print(f"p is:", p)
+#         for signs in product([-1,1], repeat=len(items)):
+#             # print(f"signs are:", signs)        
+#             yield [a*sign for a,sign in zip(p,signs)]
 
-n = 4
+# n = 4
 
-result = list(signedperms(range(1, n+1)))
+# result = list(signedperms(range(1, n+1)))
 
-print(len(result))
-for item in result:
-    print(' '.join(map(str, item)))
+# print(len(result))
+# for item in result:
+#     print(' '.join(map(str, item)))
 
+######################################################################################################
+#Problem 30
+#Finding a Spliced Motif
+
+# string = "ACGTCACGTGACG"
+# sub = "GTA"
+
+# from Bio import SeqIO
+
+# info = []
+# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_sseq.txt", "fasta"):
+#     info.append(str(rec.seq))
+
+# string = info[0]
+# sub = info[1]
+
+# seq = []
+# skip = [0]
+# for x in sub:
+#     index = string.find(x) + 1
+#     seq.append(index + sum(skip))
+#     skip.append(index)
+#     string = string[index:]
+   
+# for x in seq:
+#     print(x, end= " ")
+
+######################################################################################################
+#Problem 30
+#Finding a Spliced Motif
