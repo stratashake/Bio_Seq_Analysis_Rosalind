@@ -413,4 +413,5 @@ for x in range(len(s)):
     if len(kmer) == 4: #only 4 letter increments, could just cut off 3 letters in range? Like this: for x in range(len(s) - 3):
         sdict[kmer] += 1
 
-print(' '.join(map(str, sdict.values()))) #print with no commas or brackets, just spaces
+print(' '.join(map(str, sdict.values()))) #print with no commas or brackets, just spaces 
+fdas
