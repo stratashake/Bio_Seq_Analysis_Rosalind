@@ -393,25 +393,49 @@
 # CCTAATACCCTTCAGTTCGCCGCACAAAAGCTGGGAGTTACCGCGGAAATCACAG"""
 # s = s.replace("\n", "")
 
+# from Bio import SeqIO
+
+# s = ""
+# for rec in SeqIO.parse("./downloads/rosalind_kmer(1).txt", "fasta"):
+#     s = (rec.seq)
+
+# from collections import defaultdict
+
+# sdict = defaultdict(int) #makes all values 0
+
+# import itertools
+# x = ["A", "C", "G", "T"]
+# for y in itertools.product(x, repeat=4): #cartisean product is what we want
+#     sdict[("".join(y))] #allows us to create mutable and connected keys like AAAC instead of "A", "A", "A", "C"
+    
+# for x in range(len(s)):
+#     kmer = (s[x:x+4]) #go back 4 letter increments
+#     if len(kmer) == 4: #only 4 letter increments, could just cut off 3 letters in range? Like this: for x in range(len(s) - 3):
+#         sdict[kmer] += 1
+
+# print(' '.join(map(str, sdict.values()))) #print with no commas or brackets, just spaces 
+
+######################################################################################################
+#Problem 37
+#Speeding Up Motif Finding
+
 from Bio import SeqIO
 
-s = ""
-for rec in SeqIO.parse("./downloads/rosalind_kmer(1).txt", "fasta"):
-    s = (rec.seq)
+# s = ""
+# for rec in SeqIO.parse("C:/Users/Matt/downloads/rosalind_kmp(1).txt", "fasta"):
+#     s = (rec.seq)
 
-from collections import defaultdict
+s = "CAGCATGGTATCACAGCAGAG"
+y = len(s)
+array = [0 for _ in range(y)]
 
-sdict = defaultdict(int) #makes all values 0
+j = 0
+for i in range(1, y):
+    print(j)
+    while j > 0 and s[i] != s[j]:
+        j = array[j-1]
+    if s[i] == s[j]:
+        j += 1
+        array[i] = j
 
-import itertools
-x = ["A", "C", "G", "T"]
-for y in itertools.product(x, repeat=4): #cartisean product is what we want
-    sdict[("".join(y))] #allows us to create mutable and connected keys like AAAC instead of "A", "A", "A", "C"
-    
-for x in range(len(s)):
-    kmer = (s[x:x+4]) #go back 4 letter increments
-    if len(kmer) == 4: #only 4 letter increments, could just cut off 3 letters in range? Like this: for x in range(len(s) - 3):
-        sdict[kmer] += 1
-
-print(' '.join(map(str, sdict.values()))) #print with no commas or brackets, just spaces 
-fdas
+print(' '.join(map(str, array)))
