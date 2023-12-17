@@ -39,39 +39,38 @@
 # print(dna[::-1].translate(str.maketrans('ACGT', 'TGCA')))
 
 ##################################################################################################
-
 ##Problem 4
 ##Recursion/dynamic programming
 
-with open("./Rosalind_files/rosalind_fib.txt") as f:
-    line = f.readline()
-    num1, num2 = map(int, line.split())
+# with open("./Rosalind_files/rosalind_fib.txt") as f:
+#     line = f.readline()
+#     num1, num2 = map(int, line.split())
 
-def rabbits(n, k):
-    if n < 3:
-        return 1
-    else:
-        return rabbits(n-1, k) + k*rabbits(n-2, k)
-print(rabbits(num1, num2))
+# def rabbits(n, k):
+#     if n < 3:
+#         return 1
+#     else:
+#         return rabbits(n-1, k) + k*rabbits(n-2, k)
+# print(rabbits(num1, num2))
 
-#better memory solution
-memo = {}
-def fib(n,k):
-    args = (n, k)
-    if args in memo:
-        return memo[args]  # Aha! We have computed this before!
+# #better memory solution
+# memo = {}
+# def fib(n,k):
+#     args = (n, k)
+#     if args in memo:
+#         return memo[args]  # Aha! We have computed this before!
 
-    # We haven't computed this before, so we do it now
-    if n == 1:
-        ans = 1
-    elif n == 2:
-        ans = 1
-    else:
-        ans = fib(n-1, k) + k * fib(n-2, k)
-    memo[args] = ans  # don't forget to remember the result!
-    return ans
+#     # We haven't computed this before, so we do it now
+#     if n == 1:
+#         ans = 1
+#     elif n == 2:
+#         ans = 1
+#     else:
+#         ans = fib(n-1, k) + k * fib(n-2, k)
+#     memo[args] = ans  # don't forget to remember the result!
+#     return ans
 
-print(fib(num1, num2))
+# print(fib(num1, num2))
 
 ######################################################################################################
 # #Problem 5
@@ -81,8 +80,9 @@ print(fib(num1, num2))
 # from Bio import SeqIO
 # from operator import itemgetter
 # records = []
-# for rec in SeqIO.parse("./downloads/rosalind_gc(7).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_gc.txt", "fasta"):
 #     records.append((rec.id, gc_fraction(rec.seq)))
+
 # max_record = (max(records, key=itemgetter(1)))
 # gc_percentage = round(max_record[1] *100, 6)
 # print(max_record[0])
@@ -92,7 +92,7 @@ print(fib(num1, num2))
 # #Problem 6
 # #Calculate the Hamming distance
 
-# with open("./downloads/rosalind_hamm(1).txt") as f:
+# with open("./Rosalind_files/rosalind_hamm.txt") as f:
 #     lines = f.readlines()
 
 # s1 = lines[0]
@@ -108,12 +108,17 @@ print(fib(num1, num2))
 ######################################################################################################
 # #Problem 7
 # #Mendelian Inheritance
+
+# with open("./Rosalind_files/rosalind_iprb.txt") as f:
+#     line = f.readline()
+#     num1, num2, num3 = map(int, line.split())
+
 # #Someone else's code
 # def firstLaw(k,m,n):
 #     N = float(k+m+n)
 #     return 1 - ( m*n + .25*m*(m-1) + n*(n-1) ) / ( N*(N-1) )
 
-# print(firstLaw(25, 26, 22))
+# print(firstLaw(num1, num2, num3))
 
 # #finally figured it out
 # def mendel(D,d,r):
@@ -123,7 +128,7 @@ print(fib(num1, num2))
 #     ans = top/bottom
 #     print(ans)
 
-# mendel(25,26,22)
+# mendel(num1, num2, num3)
 
 ######################################################################################################
 # #Problem 8
@@ -146,8 +151,8 @@ print(fib(num1, num2))
 #               'GAU': 'D', 'GAC': 'D', 'GAA': 'E', 'GAG': 'E',
 #               'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G'}
 
-# with open("./downloads/rosalind_prot(1).txt") as f: 
-#     s = f.read().strip()
+# with open("./Rosalind_files/rosalind_prot.txt") as f: 
+#     rna = f.read().strip()
 
 # def translate(rna):
 #     protein = ""
@@ -160,30 +165,30 @@ print(fib(num1, num2))
 #             else:
 #                 protein += codons[codon]
 #     return protein
-# print(translate(s))
+# print(translate(rna))
 
 ######################################################################################################
 #Problem 9
-#substrings
-# import re
+#Finding a Motif in DNA; substrings
+import re
 
-# with open("./downloads/rosalind_subs(4).txt") as f:
-# 	lines = f.readlines()
+with open("./Rosalind_files/rosalind_subs.txt") as f:
+	lines = f.readlines()
 	
-# s = lines[0].strip()
-# print(s)
-# t = lines[1].strip()
-# print(t)
+s = lines[0].strip()
+print(s)
+t = lines[1].strip()
+print(t)
 
-# def CntSubstr(pattern, string):
-# 	a = [(m.start() + 1) for m in re.finditer(
-# 		'(?={0})'.format((pattern)), string)]
-# 	return a
+def CntSubstr(pattern, string):
+	a = [(m.start() + 1) for m in re.finditer(
+		'(?={0})'.format((pattern)), string)]
+	return a
 
-# # Calling the function
-# result = (CntSubstr(t, s))
-# result_str = ' '.join(map(str, result)) # convert each integer to a string and concatenate them without commas
-# print(result_str)
+# Calling the function
+result = (CntSubstr(t, s))
+result_str = ' '.join(map(str, result)) # convert each integer to a string and concatenate them without commas
+print(result_str) #ignore dna sequence
 
 ######################################################################################################
 # #Problem 10
