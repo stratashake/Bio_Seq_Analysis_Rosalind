@@ -1,38 +1,42 @@
-#Problem 1
-#Count base pairs in a string
+##Problem 1
+##Count base pairs in a string
 
-with open("./Rosalind_files/rosalind_dna.txt") as f:
-    dna = f.read().strip()
-print(dna)
+# with open("./Rosalind_files/rosalind_dna.txt") as f:
+#     dna = f.read().strip()
+# print(dna)
 
-A = dna.count('A')
-C = dna.count('C')
-T = dna.count('T')
-G = dna.count('G')
-print(A, C, G, T)
+# A = dna.count('A')
+# C = dna.count('C')
+# T = dna.count('T')
+# G = dna.count('G')
+# print(A, C, G, T)
 
 ###############################################################################################
 #Problem 2
-#convert DNA to RNA
+##convert DNA to RNA
 
 # def dna2rna(string):
 #     print(string.replace("T", "U"))
-# dna2rna("GTGACCATGGTAGGTTCCATGCTACTGAGCGATGCTATTTCGTCTAAGGACATATCAAACGCTCTACCTCGTTATATCGGAGTCGCCTACACGCTCTGCGCTGTGTTCGTGCTAGGTGGCATAATTGACTAAAAAGTTCAAGCTCCCTCTCGAGATTGAGTGGAGCGTCGGCCCCAAACTTTCGGAACCACAATGGACCGGTTCAACTTCTAACGGTTTCTTAAAAGGACGACTGATCTAGTCGCCCTCATACTCGGAGACGAATCCAAGTGTACAGGATCGATGCTGTATGTCATTGCTGCCAAGAGCACTGTGATGACCTGCGCGTTGTGCTTTGAAACACAGTTGTTGGGACAGTGCCGCCCCCCGCATAGCTCCTGCCATATTATCTGTGGGTGTTTCAACTCCTAATAAACACCGTAGCATGGCACCATCCTACCTGTACGGGATACTTTGCTGGACCTGCCACTTGATTGTGCTACGATCCTCGGGATCTGAAGAGCCACCCTGAATAGTCGGCGTGACAATCTCAAATAGACTGTATTTTCCGATAACGCCCGTCACCTCGCCAGAAGGTCGTTACAACCGCGGCCTTGCGTCCGAAAGCATCGCGGACTCCGATTAGGGTCTGGACCTTACACACACACACCTTTCCACCTGGGAAAAAGTACTCATCTGCGACCTGTCATTTACCGTATTAGTATTGACCAAAGCATATTTAAGCTAAGTCTCATACCTGACGGAGGGGGTCGGGATTATGCCATCTGGGCTTTAACGACGTCGACCTGAACACGTCCACTGAGCTTAGACCACCGCAATAGAATAAACGATAAGTGCACCATTCTTACCTTTGTCGTCTCTGCGATTGACTCTAGCACAAGGTCTATTATACACGTATAAATCACAAGGGGACA")
+
+# with open("./Rosalind_files/rosalind_rna.txt") as f:
+#     dna = f.read().strip()
+           
+# dna2rna(dna)
+
 ##############################################################################################
-# #Problem 3
-#Reverse complement DNA
+##Problem 3
+##Reverse complement DNA
 
-# def dnarevcomp(s):
-#     complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
-#     return "".join(complement[base] for base in reversed(s))
+def dnarevcomp(s):
+    complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
+    return "".join(complement[base] for base in reversed(s))
 
-# with open("./downloads/rosalind_revc.txt") as f:
-#     s = f.read().strip() #forgot the .strip(), which is why it didn't work
-# print(dnarevcomp(s))
+with open("./Rosalind_files/rosalind_revc.txt") as f:
+    dna = f.read().strip()
+print(dnarevcomp(dna))
 
-# #Problem 3 easier solution
-# s = 'AAAACCCGGT'
-# print(s[::-1].translate(str.maketrans('ACGT', 'TGCA')))
+#Problem 3 easier solution
+print(dna[::-1].translate(str.maketrans('ACGT', 'TGCA')))
 
 ##################################################################################################
 
