@@ -1,50 +1,42 @@
 # Biological Sequence Analysis with Rosalind.info problems
 
 ## Description: 
-If you navigate to: https://rosalind.info/problems/list-view/ you will 
-see the order in which I have solved these problems. Rosalind_1_25.py is the first
-script that covers problems 1 - 25. Rosalind_26_50 covers the next 25 problems.
-And so on and so forth.
+This project involves solving problems from [Rosalind.info](https://rosalind.info/problems/list-view/). 
+The scripts are organized as follows: `Rosalind_1_25.py` covers problems 1-25, 'Rosalind_26_50.py' covers the next 25 problems, and so on.
 
 ## Motivation: 
-The goal of this code is to hone my Python skills and stay updated with
-bioinformatics algorithms and BioPython/Python libraries.
+The purpose of this project is to enhance my Python skills and stay current with bioinformatics algorithms, 
+as well as BioPython and Python libraries.
 
-## Installation and Setup: 
+## Installation and Setup
 1. Clone the repository: 'git clone https://github.com/stratashake/Bio_Seq_Analysis_Rosalind'
-2. Navigate to the repository: 'cd .\Bio_Seq_Analysis_Rosalind'
+2. Navigate to the repository: 'cd Bio_Seq_Analysis_Rosalind'
 
-## Usage: 
+## Usage
 To run a specific problem script:
-1. Navigate to the script file
-2. Uncomment the desired problem section
-3. Re-comment, if desired, before moving on to next problem
+1. Open the script file.
+2. Uncomment the section corresponding to the desired problem.
+3. (Optional) Re-comment the section before moving on to the next problem for clarity.
 
-## Features: 
--Coverage of all Rosalind.info problems (or approaching all problems if 
-not currently finished)
+## Features
+- Comprehensive coverage of problems from Rosalind.info, aiming to solve all problems (work in progress).
 
 ## Limitations and Learning:
-I have tried my best to solve all of these problems with minimal outside help
-besides general advice on sites such as stackoverflow. Not all of these problems
-are within my coding abilities/understanding (these are commented on as such), but 
-I was able to find and edit answers that I thought were satisfactory and able 
-to help me move on to the next problem. I do not come from a CS background, 
-but I'm trying to improve my CS understanding as much as I can every week. 
+While I have endeavored to solve these problems independently, seeking minimal external assistance, some were beyond my 
+initial skill level. In these cases, I sought out solutions that could aid my understanding and progression. Coming from a
+non-CS background, I am committed to continually enhancing my computer science knowledge.
 
-Solving these problems has taught me:
-1. When to take a break
-2. When to not give up
-3. When to ask for help
-4. How to find help
-5. How to read documentation
+Key learnings include:
+1. Recognizing when it is wise to take breaks from coding problems or issues.
+2. Perseverance and resilience in problem-solving.
+3. Knowing when and how to seek help.
+4. Effective utilization of resources like Stack Overflow and documentation.
 
 ## License
-MIT License
-Copyright (c) 2023 Matthew Dyer
+This project is licensed under the MIT License
 
 ## Contact
-For any queries, reach out to matthewdyer.pl@gmail.com
+For inquiries, please reach out to [matthewdyer.pl@gmail.com](mailto:matthewdyer.pl@gmail.com).
 
 
 
