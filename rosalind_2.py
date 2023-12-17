@@ -419,23 +419,23 @@
 #Problem 37
 #Speeding Up Motif Finding
 
-from Bio import SeqIO
+# from Bio import SeqIO
 
-# s = ""
-# for rec in SeqIO.parse("C:/Users/Matt/downloads/rosalind_kmp(1).txt", "fasta"):
-#     s = (rec.seq)
+# # s = ""
+# # for rec in SeqIO.parse("C:/Users/Matt/downloads/rosalind_kmp(1).txt", "fasta"):
+# #     s = (rec.seq)
 
-s = "CAGCATGGTATCACAGCAGAG"
-y = len(s)
-array = [0 for _ in range(y)]
+# s = "CAGCATGGTATCACAGCAGAG"
+# y = len(s)
+# array = [0 for _ in range(y)]
 
-j = 0
-for i in range(1, y):
-    print(j)
-    while j > 0 and s[i] != s[j]:
-        j = array[j-1]
-    if s[i] == s[j]:
-        j += 1
-        array[i] = j
+# j = 0
+# for i in range(1, y):
+#     print(j)
+#     while j > 0 and s[i] != s[j]:
+#         j = array[j-1]
+#     if s[i] == s[j]:
+#         j += 1
+#         array[i] = j
 
-print(' '.join(map(str, array)))
+# print(' '.join(map(str, array)))
