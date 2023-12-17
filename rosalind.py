@@ -168,27 +168,27 @@
 # print(translate(rna))
 
 ######################################################################################################
-#Problem 9
-#Finding a Motif in DNA; substrings
-import re
+# #Problem 9
+# #Finding a Motif in DNA; substrings
+# import re
 
-with open("./Rosalind_files/rosalind_subs.txt") as f:
-	lines = f.readlines()
+# with open("./Rosalind_files/rosalind_subs.txt") as f:
+# 	lines = f.readlines()
 	
-s = lines[0].strip()
-print(s)
-t = lines[1].strip()
-print(t)
+# s = lines[0].strip()
+# print(s)
+# t = lines[1].strip()
+# print(t)
 
-def CntSubstr(pattern, string):
-	a = [(m.start() + 1) for m in re.finditer(
-		'(?={0})'.format((pattern)), string)]
-	return a
+# def CntSubstr(pattern, string):
+# 	a = [(m.start() + 1) for m in re.finditer(
+# 		'(?={0})'.format((pattern)), string)]
+# 	return a
 
-# Calling the function
-result = (CntSubstr(t, s))
-result_str = ' '.join(map(str, result)) # convert each integer to a string and concatenate them without commas
-print(result_str) #ignore dna sequence
+# # Calling the function
+# result = (CntSubstr(t, s))
+# result_str = ' '.join(map(str, result)) # convert each integer to a string and concatenate them without commas
+# print(result_str) #ignore dna sequence
 
 ######################################################################################################
 # #Problem 10
@@ -196,10 +196,11 @@ print(result_str) #ignore dna sequence
 # from Bio import SeqIO
 
 # sequences = []
-# for rec in SeqIO.parse("./downloads/rosalind_cons(2).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_cons.txt", "fasta"):
 #     str_seq = str(rec.seq)
 #     sequences.append(str_seq)    
 
+# #These sequences are just for troubleshooting, call it legacy code.
 # # sequences = ["ATCCAGCT",
 # #              "GGGCAACT",
 # #              "ATGGATCT",
@@ -239,42 +240,18 @@ print(result_str) #ignore dna sequence
 # for key in profile_matrix:
 #     print(key + ':', end=' ')
 #     print(' '.join(str(i) for i in profile_matrix[key]))
-# # print(profile_matrix)
+# print(profile_matrix)
 
 ######################################################################################################
 # #Problem 11
-# Mortal Fib. Rabbits
+# #Mortal Fib. Rabbits
 
-# #better memory solution
-# memo = {}
-# def fib(n,k):
-#     args = (n, k)
-#     if args in memo:
-#         return memo[args]  # Aha! We have computed this before!
+# with open("./Rosalind_files/rosalind_fibd.txt") as f:
+#     line = f.readline()
+#     num1, num2 = map(int, line.split())
 
-#     # We haven't computed this before, so we do it now
-#     if n == 1:
-#         ans = 1
-#     elif n == 2:
-#         ans = 1
-#     else:
-#         ans = fib(n-1, k) + k * fib(n-2, k)
-#     memo[args] = ans  # don't forget to remember the result!
-#     return ans
-
-# tuples_list = []
-# for i in range(89, 73, -1):
-#     tuples_list.append((i, 1))
-
-# sum = 0
-# for tuple in tuples_list:
-#     result = fib(*tuple)
-#     sum += result
-
-# print(fib(89,1)-(sum))
-
-# n = 92 #replace input                                                                        
-# m = 20 #replace input                                                                       
+# n = num1                                                                       
+# m = num2                                                                       
 # bunnies = [1, 1]                                                               
 # months = 2                                                                    
 # while months < n:                                                              
@@ -283,8 +260,7 @@ print(result_str) #ignore dna sequence
 #     elif months == m:                                      
 #         bunnies.append(bunnies[-2] + bunnies[-1] - 1)                          
 #     else:                                                                      
-#         bunnies.append(bunnies[-2] + bunnies[-1] - bunnies[-(                  
-#             m + 1)])                                                           
+#         bunnies.append(bunnies[-2] + bunnies[-1] - bunnies[-(m + 1)])                                                           
 #     months += 1                                                               
 # print(bunnies[-1])
 
