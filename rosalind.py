@@ -168,27 +168,25 @@
 # print(translate(rna))
 
 ######################################################################################################
-# #Problem 9
-# #Finding a Motif in DNA; substrings
-# import re
+#Problem 9
+#Finding a Motif in DNA; substrings
+import re
 
-# with open("./Rosalind_files/rosalind_subs.txt") as f:
-# 	lines = f.readlines()
+with open("./Rosalind_files/rosalind_subs.txt") as f:
+	lines = f.readlines()
 	
-# s = lines[0].strip()
-# print(s)
-# t = lines[1].strip()
-# print(t)
+s = lines[0].strip()
+t = lines[1].strip()
 
-# def CntSubstr(pattern, string):
-# 	a = [(m.start() + 1) for m in re.finditer(
-# 		'(?={0})'.format((pattern)), string)]
-# 	return a
+def CntSubstr(pattern, string):
+	a = [(m.start() + 1) for m in re.finditer(
+		'(?={0})'.format((pattern)), string)]
+	return a
 
-# # Calling the function
-# result = (CntSubstr(t, s))
-# result_str = ' '.join(map(str, result)) # convert each integer to a string and concatenate them without commas
-# print(result_str) #ignore dna sequence
+# Calling the function
+result = (CntSubstr(t, s))
+result_str = ' '.join(map(str, result)) # convert each integer to a string and concatenate them without commas
+print(result_str) #ignore dna sequence
 
 ######################################################################################################
 # #Problem 10
