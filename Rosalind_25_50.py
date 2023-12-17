@@ -410,5 +410,4 @@
 #     if s[i] == s[j]:
 #         j += 1
 #         array[i] = j
-
 # print(' '.join(map(str, array))) 
