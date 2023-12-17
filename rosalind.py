@@ -1,52 +1,59 @@
-#Problem 1
-#Count base pairs in a string
+##Problem 1
+##Count base pairs in a string
 
-with open("./Rosalind_files/rosalind_dna.txt") as f:
-    dna = f.read().strip()
-print(dna)
+# with open("./Rosalind_files/rosalind_dna.txt") as f:
+#     dna = f.read().strip()
+# print(dna)
 
-A = dna.count('A')
-C = dna.count('C')
-T = dna.count('T')
-G = dna.count('G')
-print(A, C, G, T)
+# A = dna.count('A')
+# C = dna.count('C')
+# T = dna.count('T')
+# G = dna.count('G')
+# print(A, C, G, T)
 
 ###############################################################################################
 #Problem 2
-#convert DNA to RNA
+##convert DNA to RNA
 
 # def dna2rna(string):
 #     print(string.replace("T", "U"))
-# dna2rna("GTGACCATGGTAGGTTCCATGCTACTGAGCGATGCTATTTCGTCTAAGGACATATCAAACGCTCTACCTCGTTATATCGGAGTCGCCTACACGCTCTGCGCTGTGTTCGTGCTAGGTGGCATAATTGACTAAAAAGTTCAAGCTCCCTCTCGAGATTGAGTGGAGCGTCGGCCCCAAACTTTCGGAACCACAATGGACCGGTTCAACTTCTAACGGTTTCTTAAAAGGACGACTGATCTAGTCGCCCTCATACTCGGAGACGAATCCAAGTGTACAGGATCGATGCTGTATGTCATTGCTGCCAAGAGCACTGTGATGACCTGCGCGTTGTGCTTTGAAACACAGTTGTTGGGACAGTGCCGCCCCCCGCATAGCTCCTGCCATATTATCTGTGGGTGTTTCAACTCCTAATAAACACCGTAGCATGGCACCATCCTACCTGTACGGGATACTTTGCTGGACCTGCCACTTGATTGTGCTACGATCCTCGGGATCTGAAGAGCCACCCTGAATAGTCGGCGTGACAATCTCAAATAGACTGTATTTTCCGATAACGCCCGTCACCTCGCCAGAAGGTCGTTACAACCGCGGCCTTGCGTCCGAAAGCATCGCGGACTCCGATTAGGGTCTGGACCTTACACACACACACCTTTCCACCTGGGAAAAAGTACTCATCTGCGACCTGTCATTTACCGTATTAGTATTGACCAAAGCATATTTAAGCTAAGTCTCATACCTGACGGAGGGGGTCGGGATTATGCCATCTGGGCTTTAACGACGTCGACCTGAACACGTCCACTGAGCTTAGACCACCGCAATAGAATAAACGATAAGTGCACCATTCTTACCTTTGTCGTCTCTGCGATTGACTCTAGCACAAGGTCTATTATACACGTATAAATCACAAGGGGACA")
+
+# with open("./Rosalind_files/rosalind_rna.txt") as f:
+#     dna = f.read().strip()
+           
+# dna2rna(dna)
+
 ##############################################################################################
-# #Problem 3
-#Reverse complement DNA
+##Problem 3
+##Reverse complement DNA
 
 # def dnarevcomp(s):
 #     complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
 #     return "".join(complement[base] for base in reversed(s))
 
-# with open("./downloads/rosalind_revc.txt") as f:
-#     s = f.read().strip() #forgot the .strip(), which is why it didn't work
-# print(dnarevcomp(s))
+# with open("./Rosalind_files/rosalind_revc.txt") as f:
+#     dna = f.read().strip()
+# print(dnarevcomp(dna))
 
 # #Problem 3 easier solution
-# s = 'AAAACCCGGT'
-# print(s[::-1].translate(str.maketrans('ACGT', 'TGCA')))
+# print(dna[::-1].translate(str.maketrans('ACGT', 'TGCA')))
 
 ##################################################################################################
+##Problem 4
+##Recursion/dynamic programming
 
-#Problem 4
-#Recursion/dynamic programming
+# with open("./Rosalind_files/rosalind_fib.txt") as f:
+#     line = f.readline()
+#     num1, num2 = map(int, line.split())
 
 # def rabbits(n, k):
 #     if n < 3:
 #         return 1
 #     else:
 #         return rabbits(n-1, k) + k*rabbits(n-2, k)
-# print(rabbits(5, 2))
+# print(rabbits(num1, num2))
 
-#better memory solution
+# #better memory solution
 # memo = {}
 # def fib(n,k):
 #     args = (n, k)
@@ -63,7 +70,7 @@ print(A, C, G, T)
 #     memo[args] = ans  # don't forget to remember the result!
 #     return ans
 
-# print(fib(5,2))
+# print(fib(num1, num2))
 
 ######################################################################################################
 # #Problem 5
@@ -73,8 +80,9 @@ print(A, C, G, T)
 # from Bio import SeqIO
 # from operator import itemgetter
 # records = []
-# for rec in SeqIO.parse("./downloads/rosalind_gc(7).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_gc.txt", "fasta"):
 #     records.append((rec.id, gc_fraction(rec.seq)))
+
 # max_record = (max(records, key=itemgetter(1)))
 # gc_percentage = round(max_record[1] *100, 6)
 # print(max_record[0])
@@ -82,9 +90,9 @@ print(A, C, G, T)
 
 ######################################################################################################
 # #Problem 6
-# #Calculate the Hamming distance
+# #Counting Point Mutations; Calculate the Hamming distance
 
-# with open("./downloads/rosalind_hamm(1).txt") as f:
+# with open("./Rosalind_files/rosalind_hamm.txt") as f:
 #     lines = f.readlines()
 
 # s1 = lines[0]
@@ -99,13 +107,18 @@ print(A, C, G, T)
 
 ######################################################################################################
 # #Problem 7
-# #Mendelian Inheritance
+# #Mendel's First Law; Mendelian Inheritance
+
+# with open("./Rosalind_files/rosalind_iprb.txt") as f:
+#     line = f.readline()
+#     num1, num2, num3 = map(int, line.split())
+
 # #Someone else's code
 # def firstLaw(k,m,n):
 #     N = float(k+m+n)
 #     return 1 - ( m*n + .25*m*(m-1) + n*(n-1) ) / ( N*(N-1) )
 
-# print(firstLaw(25, 26, 22))
+# print(firstLaw(num1, num2, num3))
 
 # #finally figured it out
 # def mendel(D,d,r):
@@ -115,7 +128,7 @@ print(A, C, G, T)
 #     ans = top/bottom
 #     print(ans)
 
-# mendel(25,26,22)
+# mendel(num1, num2, num3)
 
 ######################################################################################################
 # #Problem 8
@@ -138,8 +151,8 @@ print(A, C, G, T)
 #               'GAU': 'D', 'GAC': 'D', 'GAA': 'E', 'GAG': 'E',
 #               'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G'}
 
-# with open("./downloads/rosalind_prot(1).txt") as f: 
-#     s = f.read().strip()
+# with open("./Rosalind_files/rosalind_prot.txt") as f: 
+#     rna = f.read().strip()
 
 # def translate(rna):
 #     protein = ""
@@ -152,20 +165,18 @@ print(A, C, G, T)
 #             else:
 #                 protein += codons[codon]
 #     return protein
-# print(translate(s))
+# print(translate(rna))
 
 ######################################################################################################
-#Problem 9
-#substrings
+# #Problem 9
+# #Finding a Motif in DNA; substrings
 # import re
 
-# with open("./downloads/rosalind_subs(4).txt") as f:
+# with open("./Rosalind_files/rosalind_subs.txt") as f:
 # 	lines = f.readlines()
 	
 # s = lines[0].strip()
-# print(s)
 # t = lines[1].strip()
-# print(t)
 
 # def CntSubstr(pattern, string):
 # 	a = [(m.start() + 1) for m in re.finditer(
@@ -179,14 +190,15 @@ print(A, C, G, T)
 
 ######################################################################################################
 # #Problem 10
-# #Consensus
+# #Consensus and Profile
 # from Bio import SeqIO
 
 # sequences = []
-# for rec in SeqIO.parse("./downloads/rosalind_cons(2).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_cons.txt", "fasta"):
 #     str_seq = str(rec.seq)
 #     sequences.append(str_seq)    
 
+# #These sequences are just for troubleshooting, call it legacy code.
 # # sequences = ["ATCCAGCT",
 # #              "GGGCAACT",
 # #              "ATGGATCT",
@@ -226,42 +238,18 @@ print(A, C, G, T)
 # for key in profile_matrix:
 #     print(key + ':', end=' ')
 #     print(' '.join(str(i) for i in profile_matrix[key]))
-# # print(profile_matrix)
+# print(profile_matrix)
 
 ######################################################################################################
 # #Problem 11
-# Mortal Fib. Rabbits
+# #Mortal Fibonacci Rabbits
 
-# #better memory solution
-# memo = {}
-# def fib(n,k):
-#     args = (n, k)
-#     if args in memo:
-#         return memo[args]  # Aha! We have computed this before!
+# with open("./Rosalind_files/rosalind_fibd.txt") as f:
+#     line = f.readline()
+#     num1, num2 = map(int, line.split())
 
-#     # We haven't computed this before, so we do it now
-#     if n == 1:
-#         ans = 1
-#     elif n == 2:
-#         ans = 1
-#     else:
-#         ans = fib(n-1, k) + k * fib(n-2, k)
-#     memo[args] = ans  # don't forget to remember the result!
-#     return ans
-
-# tuples_list = []
-# for i in range(89, 73, -1):
-#     tuples_list.append((i, 1))
-
-# sum = 0
-# for tuple in tuples_list:
-#     result = fib(*tuple)
-#     sum += result
-
-# print(fib(89,1)-(sum))
-
-# n = 92 #replace input                                                                        
-# m = 20 #replace input                                                                       
+# n = num1                                                                       
+# m = num2                                                                       
 # bunnies = [1, 1]                                                               
 # months = 2                                                                    
 # while months < n:                                                              
@@ -270,17 +258,16 @@ print(A, C, G, T)
 #     elif months == m:                                      
 #         bunnies.append(bunnies[-2] + bunnies[-1] - 1)                          
 #     else:                                                                      
-#         bunnies.append(bunnies[-2] + bunnies[-1] - bunnies[-(                  
-#             m + 1)])                                                           
+#         bunnies.append(bunnies[-2] + bunnies[-1] - bunnies[-(m + 1)])                                                           
 #     months += 1                                                               
 # print(bunnies[-1])
 
 ######################################################################################################
-# # #Problem 12
+# #Problem 12
 # #Overlap graphs
 # from Bio import SeqIO
 # fastas = {}
-# for rec in SeqIO.parse("./downloads/rosalind_grph(15).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_grph.txt", "fasta"):
 #     fastas[(rec.seq)]=[(rec.id)]
 
 # seq = []
@@ -293,24 +280,12 @@ print(A, C, G, T)
 #         if i != j and (seq[j][:3]) == (seq[i][-3:]):
 #             print(fastas[seq[i]][0], fastas[seq[j]][0])
 
-# #someone else's function that uses permutations
-# # from Bio import SeqIO
-# # from itertools import permutations
-
-# # with open(sys.argv[1], 'rU') as f:
-# #     records = SeqIO.parse(f, 'fasta')
-
-# # def is_overlap(record1, record2, o=3):
-# #     return record1.seq.endswith(record2.seq[:o])
-
-# # print("\r\n".join((" ".join((record1.id, record2.id)) for record1, record2 in permutations(records, 2) if is_overlap(record1, record2))))
-
 ######################################################################################################
-# # #Problem 13
-# #Averages
+# #Problem 13
+# #Calculating Expected Offspring
 
 # pop = []
-# with open("./downloads/rosalind_iev(1).txt") as f:
+# with open("./Rosalind_files/rosalind_iev.txt") as f:
 #     for line in f:
 #         numbers = line.strip().split()
 #         for number in numbers:
@@ -325,17 +300,15 @@ print(A, C, G, T)
 # print(2*a*pop[0] + 2*b*pop[1] + 2*c*pop[2] + 2*d*pop[3] + 2*e*pop[4])
 
 ######################################################################################################
-#Problem 14
-#Longest common substring
-
-# fastas = ["GATTACA", "TAGACCA", "ATACA"]
+##Problem 14
+##Finding a Shared Motif; Longest common substring
 
 # from Bio import SeqIO
 # import time
 
 # start_time = time.time()
 # fastas = []
-# for rec in SeqIO.parse("./downloads/rosalind_lcsm.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_lcsm.txt", "fasta"):
 #     str_seq = str(rec.seq)
 #     fastas.append(str_seq)  
 
@@ -363,36 +336,18 @@ print(A, C, G, T)
 # elapsed_time = end_time - start_time
 # print("Elapsed time:", elapsed_time, "seconds")
 
-#Really cool use of the 'all' function in this version of the code
-
-
-# # fastas = ["GATTACA", "TAGACCA", "ATACA"]
-# n = len(fastas)
-# s = fastas[0]
-# l = len(s)
-
-# stem_list = []
-
-# for i in range(l):
-#     for j in range(i + 1, l + 1):
-#         stem = s[i:j]
-#         if len(stem) != 1:
-#             if all(stem in x for x in fastas[1:]): #what the fuck is this? 
-#                 stem_list.append(stem)
-
-# print(max(stem_list, key = len))
-
 ######################################################################################################
-#Problem 15
+# #Problem 15
+# #Independent Alleles
+
 # from math import factorial
 
 # pop = []
-# with open("./downloads/rosalind_lia.txt") as f:
+# with open("./Rosalind_files/rosalind_lia.txt") as f:
 #     for line in f:
 #         numbers = line.strip().split()
 #         for number in numbers:
 #             pop.append(int(number))
-
 
 # k = pop[0]
 # n = pop[1]
@@ -405,8 +360,8 @@ print(A, C, G, T)
 # print(round(probability, 3))
 
 ######################################################################################################
-#Problem 16
-#Find protein motif
+# #Problem 16
+# #Find protein motif
 
 # import requests
 # import re
@@ -414,7 +369,7 @@ print(A, C, G, T)
 # from io import StringIO
 
 # proteins_full = []
-# with open ("./downloads/rosalind_mprt(5).txt") as f:
+# with open ("./Rosalind_files/rosalind_mprt.txt") as f:
 #     for line in f:
 #         numbers = line.strip()
 #         proteins_full.append(numbers)
@@ -465,8 +420,8 @@ print(A, C, G, T)
 #     print(*values)
 
 ######################################################################################################
-#Problem 17
-#Find protein motif
+# #Problem 17
+# #Find protein motif
 
 # from operator import countOf
 
@@ -487,14 +442,8 @@ print(A, C, G, T)
 #               'GAU': 'D', 'GAC': 'D', 'GAA': 'E', 'GAG': 'E',
 #               'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G'}
 
-# with open("./downloads/rosalind_mrna.txt") as f: 
+# with open("./Rosalind_files/rosalind_mrna.txt") as f: 
 #     protein = f.read().strip()
-
-# #Protein generator
-# # k = 100
-# # use codons.values() to get a list of amino acids, excluding 'Stop'
-# # protein = ''.join(random.choices([aa for aa in codons.values() if aa != 'Stop'], k=k))
-# # print(len(protein))
 
 # count = 1
 # for aa in protein:
@@ -502,14 +451,20 @@ print(A, C, G, T)
 # count = count*3 #accounting for the stop codon
 # print(count % 1000000)
 
+# #Protein generator, unrelated to this problem but useful for trouble shooting
+# # k = 100
+# # use codons.values() to get a list of amino acids, excluding 'Stop'
+# # protein = ''.join(random.choices([aa for aa in codons.values() if aa != 'Stop'], k=k))
+# # print(len(protein))
+
 ######################################################################################################
-#Problem 18
-#Open Reading Frames
+# #Problem 18
+# #Open Reading Frames
 
 # from Bio import SeqIO
 # import re
 # DNA = ""
-# for rec in SeqIO.parse("./downloads/rosalind_orf(2).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_orf.txt", "fasta"):
 #     DNA = str(rec.seq)
 # DNA = DNA.replace('\n', '')
 
@@ -579,12 +534,14 @@ print(A, C, G, T)
 #     print(x)
 
 ######################################################################################################
-#Problem 19
-#Permutations
+# #Problem 19
+# #Enumerating Gene Orders; Permutations
 
 # from itertools import permutations
 
-# number = 6
+# with open("./Rosalind_files/rosalind_perm.txt") as f:
+#     number = int(f.read().strip())
+
 # perms = []
 
 # def calc_permutations(x): 
@@ -598,13 +555,13 @@ print(A, C, G, T)
 # print('\n'.join(perms))
 
 ######################################################################################################
-#Problem 20
-#Calculating Protein Mass
+# # Problem 20
+# # Calculating Protein Mass
 
-##from Bio.SeqUtils.ProtParam import ProteinAnalysis #doesn't work, gives slightly different values
-##protein = ProteinAnalysis(x)
+# #from Bio.SeqUtils.ProtParam import ProteinAnalysis #doesn't work, gives slightly different values
+# #protein = ProteinAnalysis(x)
 
-# with open ("./downloads/rosalind_prtm.txt") as f:
+# with open ("./Rosalind_files/rosalind_prtm.txt") as f:
 #     x = f.read().strip()
 
 # monoisotopic_mass_table = {
@@ -634,12 +591,12 @@ print(A, C, G, T)
 # print("%0.3f" % weight)
 
 ######################################################################################################
-#Problem 21
-#Locating Restriction Sites
+# #Problem 21
+# #Locating Restriction Sites
 
 # from Bio import SeqIO
 # seq = ""
-# for rec in SeqIO.parse("./downloads/rosalind_revp.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_revp.txt", "fasta"):
 #     seq = str(rec.seq)
 
 # complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
@@ -659,21 +616,17 @@ print(A, C, G, T)
 # subString(seq,len(seq))
 
 ######################################################################################################
-#Problem 22
-#RNA Splicing
- 
-# # seq = "ATGGTCTACATAGCTGACAAACAGCACGTAGCAATCGGTCGAATCTCGAGAGGCATATGGTCACATGATCGGTCGAGCGTGTTTCAAAGTTTGCGCCTAG"
-# # introns = "ATCGGTCGAA", "ATCGGTCGAGCGTGT"
+# #Problem 22
+# #RNA Splicing
 
 # from Bio import SeqIO
 
 # introns = []
 # seq = ""
 # sequences = []
-# for rec in SeqIO.parse("./downloads/rosalind_splc.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_splc.txt", "fasta"):
 #     sequences.append(str(rec.seq))
 
-# # print(sequences)
 # seq = sequences[0]
 # introns = sequences[1:]   
 
@@ -716,22 +669,18 @@ print(A, C, G, T)
 # print(translate(spliced_rna))
 
 ######################################################################################################
-#Problem 23
-#Enumerating k-mers Lexicographically
+# # Problem 23
+# # Enumerating k-mers Lexicographically
 
-# from itertools import permutations
 # from itertools import product
 
-# with open ("./downloads/rosalind_lexf(1).txt") as f:
+# with open ("./Rosalind_files/rosalind_lexf.txt") as f:
 #     x = f.readlines()
 
-# print(x)
 # alphabet = x[0].strip()
 # alphabet = alphabet.replace(" ", "")
-# print(alphabet)
 # n = int(x[1])
 
-# # alphabet = "A", "C", "G", "T"
 # len_alpha = (len(alphabet))
 
 # alphadict = {}
@@ -745,10 +694,10 @@ print(A, C, G, T)
 #     print(''.join(perm))
 
 ######################################################################################################
-#Problem 24
-#Longest Increasing Subsequence
+##Problem 24
+##Longest Increasing Subsequence
 
-# #This was all chatgpt, I understand almost none of this
+## I received quite a bit of help with this problem - it's still difficult for me to understand
 # def longest_increasing_subsequence(sequence): 
 #     length = len(sequence)
 #     print(length)
@@ -768,7 +717,7 @@ print(A, C, G, T)
 #             tail_indexes[length] = i
 #             length += 1
 #         else:
-#             # sequence[i] is a candidate for future subsequence, replace ceil value in tail_indexes
+#             # sequence[i] is a candidate for future subsequence, replace cell value in tail_indexes
 #             l = -1
 #             r = length-1
 #             while (r - l > 1):
@@ -787,11 +736,10 @@ print(A, C, G, T)
 #         i = prev_indice[i]
 #     return result[::-1]  # reversing the result to get increasing order
 
-# with open ("./downloads/rosalind_lgis(1).txt") as f:
+# with open ("./Rosalind_files/rosalind_lgis.txt") as f:
 #     x = f.readlines()
 
 # sequence = [int(item) for line in x[1:] for item in line.split()]
-# print(sequence[0])
 
 # lis = longest_increasing_subsequence(sequence)
 # print(" ".join(str(num) for num in lis))
@@ -799,12 +747,13 @@ print(A, C, G, T)
 # sequence = sequence[::-1]
 # lds = longest_increasing_subsequence(sequence)
 # print(" ".join(str(num) for num in lds[::-1]))
+# #ignore the largest number that's a line above each subsequence, that's just the integer
 
 ######################################################################################################
-#Problem 25
-#Genome Assembly as Shortest Superstring
+# #Problem 25
+# #Genome Assembly as Shortest Superstring
 
-############### I stole all of this from online and don't truly understand it
+# # I received quite a bit of help with this problem, too. It's still difficult for me to understand
 
 # import sys
 # from Bio import SeqIO
@@ -883,49 +832,10 @@ print(A, C, G, T)
 #     return arr[0]
 
 # reads = []
-# for rec in SeqIO.parse("./downloads/rosalind_long(1).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_long.txt", "fasta"):
 #     reads.append(str(rec.seq))
 
 # n = len(reads)
 
-# # Function Call
+# Function Call
 # print(findShortestSuperstring(reads, n))
-
-############### I stole all of this from another user on rosalind and don't truly understand it
-
-# s = """
-# ATTAGACCTG
-# GCCGGAATAC
-# CCTGCCGGAA
-# AGACCTGCCG
-# """.split()
-
-# from Bio import SeqIO
-
-# s = []
-# for rec in SeqIO.parse("./downloads/rosalind_long(1).txt", "fasta"):
-#     s.append(str(rec.seq))
-
-
-# def revcomp(s):
-#     return s.translate(str.maketrans('ACTG','TGAC'))[::-1]
-
-# def overlap(a,b):
-#     candidates_overlaps = [l for l in range(min(len(a), int(len(b)/2)),
-#                                             min(len(a), len(b))
-#                                            ) if a[-l:] == b[:l]]
-#     return max(candidates_overlaps) if len(candidates_overlaps)>0 else 0
-
-# def extend(consensus,remaining_reads):
-#     remaining_reads = list(remaining_reads)
-#     while len(remaining_reads)>0:
-#         get_max = [(overlap(consensus,b), b) for b in remaining_reads]
-#         overlap_length, best_overlap = max(get_max, key = lambda x: x[0])
-#         # print ('overlap_length, best_overlap',overlap_length, best_overlap)
-#         if overlap_length == 0:
-#             break
-#         remaining_reads.remove(best_overlap)
-#         consensus += best_overlap[overlap_length:]
-#     return consensus
-
-# print (revcomp(extend(revcomp(s[0]), map(revcomp, s[1:])))[:-len(s[0])] + extend(s[0], s[1:]))
