@@ -27,47 +27,51 @@
 ##Problem 3
 ##Reverse complement DNA
 
-def dnarevcomp(s):
-    complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
-    return "".join(complement[base] for base in reversed(s))
+# def dnarevcomp(s):
+#     complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
+#     return "".join(complement[base] for base in reversed(s))
 
-with open("./Rosalind_files/rosalind_revc.txt") as f:
-    dna = f.read().strip()
-print(dnarevcomp(dna))
+# with open("./Rosalind_files/rosalind_revc.txt") as f:
+#     dna = f.read().strip()
+# print(dnarevcomp(dna))
 
-#Problem 3 easier solution
-print(dna[::-1].translate(str.maketrans('ACGT', 'TGCA')))
+# #Problem 3 easier solution
+# print(dna[::-1].translate(str.maketrans('ACGT', 'TGCA')))
 
 ##################################################################################################
 
-#Problem 4
-#Recursion/dynamic programming
+##Problem 4
+##Recursion/dynamic programming
 
-# def rabbits(n, k):
-#     if n < 3:
-#         return 1
-#     else:
-#         return rabbits(n-1, k) + k*rabbits(n-2, k)
-# print(rabbits(5, 2))
+with open("./Rosalind_files/rosalind_fib.txt") as f:
+    line = f.readline()
+    num1, num2 = map(int, line.split())
+
+def rabbits(n, k):
+    if n < 3:
+        return 1
+    else:
+        return rabbits(n-1, k) + k*rabbits(n-2, k)
+print(rabbits(num1, num2))
 
 #better memory solution
-# memo = {}
-# def fib(n,k):
-#     args = (n, k)
-#     if args in memo:
-#         return memo[args]  # Aha! We have computed this before!
+memo = {}
+def fib(n,k):
+    args = (n, k)
+    if args in memo:
+        return memo[args]  # Aha! We have computed this before!
 
-#     # We haven't computed this before, so we do it now
-#     if n == 1:
-#         ans = 1
-#     elif n == 2:
-#         ans = 1
-#     else:
-#         ans = fib(n-1, k) + k * fib(n-2, k)
-#     memo[args] = ans  # don't forget to remember the result!
-#     return ans
+    # We haven't computed this before, so we do it now
+    if n == 1:
+        ans = 1
+    elif n == 2:
+        ans = 1
+    else:
+        ans = fib(n-1, k) + k * fib(n-2, k)
+    memo[args] = ans  # don't forget to remember the result!
+    return ans
 
-# print(fib(5,2))
+print(fib(num1, num2))
 
 ######################################################################################################
 # #Problem 5
