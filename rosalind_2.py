@@ -1,51 +1,46 @@
 ######################################################################################################
-#Problem 26
-#Perfect Matchings and RNA Secondary Structures
+# #Problem 26
+# #Perfect Matchings and RNA Secondary Structures
 
 # from math import factorial as fac
+# from Bio import SeqIO
+# reads = []
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_pmch.txt", "fasta"):
+#     reads.append(str(rec.seq))
 
 # def perfect_matchings(rna):
 #    return fac(rna.count('A')) * fac(rna.count('C'))
 
-# from Bio import SeqIO
-# reads = []
-# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_pmch.txt", "fasta"):
-#     reads.append(str(rec.seq))
-
 # for x in reads:
-#     print(x)
 #     print(perfect_matchings(x))
 
 ######################################################################################################
-#Problem 27
-#Partial Permutations
+# #Problem 27
+# #Partial Permutations
+
+# # Another way I've imported variables from files
+# # with open("./Rosalind_files/rosalind_pper.txt") as f: 
+# #     protein = f.read()
+# # n, k = protein.split()
+# # n, k = int(n), int(k)
 
 # from math import factorial as fac
 
-# with open("c:/Users/Matt/downloads/rosalind_pper.txt") as f: 
-#     protein = f.read()
+# with open("./Rosalind_files/rosalind_pper.txt") as f:
+#     line = f.readline()
+#     n, k = map(int, line.split())
 
-# print(protein)
-# n, k = protein.split()
-# n, k = int(n), int(k)
-
-# print(n, k)
-# # n = 99
-# # k = 9
-
-# print(fac(n) / fac(n-k) % 1000000)
+# # Calculate partial permutation using modulo at the end
+# ans = int(fac(n) / fac(n-k)) % 1000000
+# print(ans)
 
 ######################################################################################################
-#Problem 28
-#Introduction to Random Strings
+# #Problem 28
+# #Introduction to Random Strings
 
 # import math
 
-# # s = "ACGATACAA"
-# # # arr = [0.129]
-# # arr = [0.129, 0.287, 0.423, 0.476, 0.641, 0.742, 0.783]
-
-# with open("c:/Users/Matt/downloads/rosalind_prob.txt") as f: 
+# with open("./Rosalind_files/rosalind_prob.txt") as f: 
 #     string = f.readlines()
 
 # s = string[0]
