@@ -395,8 +395,9 @@
 # #Problem 37
 # #Speeding Up Motif Finding
 
-# from Bio import SeqIO
+from Bio import SeqIO
 
+<<<<<<< HEAD
 # for rec in SeqIO.parse("./Rosalind_files/rosalind_kmp.txt", "fasta"):
 #     s = (rec.seq)
 
@@ -411,3 +412,20 @@
 #         j += 1
 #         array[i] = j
 # print(' '.join(map(str, array))) 
+=======
+for rec in SeqIO.parse("./Rosalind_files/rosalind_kmp.txt", "fasta"):
+    s = (rec.seq)
+
+y = len(s)
+array = [0 for _ in range(y)]
+
+j = 0
+for i in range(1, y):
+    while j > 0 and s[i] != s[j]:
+        j = array[j-1]
+    if s[i] == s[j]:
+        j += 1
+        array[i] = j
+
+print(' '.join(map(str, array)))
+>>>>>>> 8bb2c93 (Updated up to probelm 37 with all .txt files)
