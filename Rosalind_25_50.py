@@ -63,19 +63,18 @@
 #     rand_string_calc(s, float(x))
 
 ######################################################################################################
-#Problem 29
-#Enumerating Oriented Gene Orderings 
+## Problem 29
+## Enumerating Oriented Gene Orderings 
 
 # from itertools import permutations, product
 
 # def signedperms(items):
 #     for p in permutations(items):
-#         # print(f"p is:", p)
-#         for signs in product([-1,1], repeat=len(items)):
-#             # print(f"signs are:", signs)        
+#         for signs in product([-1,1], repeat=len(items)):       
 #             yield [a*sign for a,sign in zip(p,signs)]
 
-# n = 4
+# with open("./Rosalind_files/rosalind_sign.txt") as f:
+#     n = int(f.read().strip())
 
 # result = list(signedperms(range(1, n+1)))
 
@@ -84,16 +83,13 @@
 #     print(' '.join(map(str, item)))
 
 ######################################################################################################
-#Problem 30
-#Finding a Spliced Motif
-
-# string = "ACGTCACGTGACG"
-# sub = "GTA"
+# #Problem 30
+# #Finding a Spliced Motif
 
 # from Bio import SeqIO
 
 # info = []
-# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_sseq.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_sseq.txt", "fasta"):
 #     info.append(str(rec.seq))
 
 # string = info[0]
@@ -111,20 +107,17 @@
 #     print(x, end= " ")
 
 ######################################################################################################
-#Problem 31
-#Finding a Spliced Motif
+# #Problem 31
+# #Finding a Spliced Motif
 
 # from Bio import SeqIO
 
 # info = []
-# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_tran.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_tran.txt", "fasta"):
 #     info.append(str(rec.seq))
 
 # str1 = info[0]
 # str2 = info[1]
-
-# str1 = "GCAACGCACAACGAAAACCCTTAGGGACTGGATTATTTCGTGATCGTTGTAGTTATTGGAAGTACGGGCATCAACCCAGTT"
-# str2 = "TTATCTGACAAAGAAAGCCGTCAACGGCTGGATAATTTCGCGATCGTGCTGGTTACTGGCGGTACGAGTGTTCCTTTGGGT"
 
 # transitions, transversions = 0, 0
 
@@ -142,14 +135,11 @@
 #     else:
 #         transversions += 1
     
-# print(transitions, transversions)
+# # print(transitions, transversions)
 # print(transitions/transversions)
 
-######################
-#better way
-
-# str1 = "GCAACGCACAACGAAAACCCTTAGGGACTGGATTATTTCGTGATCGTTGTAGTTATTGGAAGTACGGGCATCAACCCAGTT"
-# str2 = "TTATCTGACAAAGAAAGCCGTCAACGGCTGGATAATTTCGCGATCGTGCTGGTTACTGGCGGTACGAGTGTTCCTTTGGGT"
+# #####################
+# #better way
 
 # # Map of transitions
 # transition_map = {"AG", "GA", "CT", "TC"}
@@ -163,30 +153,28 @@
 #         else:
 #             transversions += 1
 
-# print(transitions, transversions)
+# # print(transitions, transversions)
 # print(transitions/transversions)
 
 ######################################################################################################
-#Problem 32
-#Completing a Tree
+# #Problem 32
+# #Completing a Tree
 
-#this is pseudo code that doesn't use an algorithm. 
+# #this is pseudo code that doesn't use an algorithm. 
 
-# with open('c:/Users/Matt/downloads/rosalind_tree(1).txt','r') as f:
+# with open("./Rosalind_files/rosalind_tree.txt",'r') as f:
 #     lines = f.readlines()
 
 # print(int(lines[0]) - len(lines[1:]) - 1)
 
 ######################################################################################################
-#Problem 33
-#Catalan Numbers and RNA Secondary Structures
-
-#catalan number formula, psuedo code
+##Problem 33
+##Catalan Numbers and RNA Secondary Structures
 
 # from Bio import SeqIO
 
 # rna = ""
-# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_cat(3).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_cat.txt", "fasta"):
 #     rna = (str(rec.seq))
 
 # def solve(rna):
@@ -235,8 +223,11 @@
 # print(solve(rna.strip()) % 1000000)
 
 ######################################################################################################
-#Problem 34
-#Error Correction in Reads
+## Problem 34
+## Error Correction in Reads
+
+# """
+# #This was my original best attempt, leaving here just for my benefit
 
 # from Bio import SeqIO
 # import itertools
@@ -249,7 +240,7 @@
 
 # rna = []
 # revrna = []
-# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_cat.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_corr.txt", "fasta"):
 #     rna.append(str(rec.seq))
 #     revrna.append(revcomp(str(rec.seq)))
 
@@ -272,16 +263,11 @@
 # # If you need the matches as a list, you can convert the set back to a list
 # revmatches = list(revmatches)
 
-# # print(f"revmatches", revmatches) 
-# # print(f"matches", matches)
-
 # for x in revmatches:
 #     for a in rna:
 #         if compare_matches(x, a) == True:
 #             hammings_match = (x,a)
 #             hammings.append(hammings_match)
-
-# # print(f"hammings_match", hammings)
 
 # correct = []
 # final = []
@@ -317,9 +303,9 @@
                 
 # for x in set(final):
 #     print(x)
+# """
 
-#############################################################
-#corrected via chatgpt:
+# # Much Corrected code
 
 # from Bio import SeqIO
 # import itertools
@@ -331,7 +317,7 @@
 #     return sum(s1[i] != s2[i] for i in range(len(s1))) == 1
 
 # rna = []
-# for rec in SeqIO.parse("c:/Users/Matt/downloads/rosalind_cat.txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_corr.txt", "fasta"):
 #     rna.append(str(rec.seq))
 
 # matches=[]
@@ -370,31 +356,26 @@
 
 
 ######################################################################################################
-#Problem 35
-#Counting Phylogenetic Ancestors
+# #Problem 35
+# #Counting Phylogenetic Ancestors
 
-#n - 2
+# # More psuedocode
+
+# with open("./Rosalind_files/rosalind_inod.txt") as f:
+#     n = int(f.read().strip())
+
+# print(n-2)
 
 ######################################################################################################
-#Problem 36
-#k-Mer Composition
-
-# s = """CTTCGAAAGTTTGGGCCGAGTCTTACAGTCGGTCTTGAAGCAAAGTAACGAACTCCACGG
-# CCCTGACTACCGAACCAGTTGTGAGTACTCAACTGGGTGAGAGTGCAGTCCCTATTGAGT
-# TTCCGAGACTCACCGGGATTTTCGATCCAGCCTCAGTCCAGTCTTGTGGCCAACTCACCA
-# AATGACGTTGGAATATCCCTGTCTAGCTCACGCAGTACTTAGTAAGAGGTCGCTGCAGCG
-# GGGCAAGGAGATCGGAAAATGTGCTCTATATGCGACTAAAGCTCCTAACTTACACGTAGA
-# CTTGCCCGTGTTAAAAACTCGGCTCACATGCTGTCTGCGGCTGGCTGTATACAGTATCTA
-# CCTAATACCCTTCAGTTCGCCGCACAAAAGCTGGGAGTTACCGCGGAAATCACAG"""
-# s = s.replace("\n", "")
+# #Problem 36
+# #k-Mer Composition
 
 # from Bio import SeqIO
+# from collections import defaultdict
 
 # s = ""
-# for rec in SeqIO.parse("./downloads/rosalind_kmer(1).txt", "fasta"):
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_kmer.txt", "fasta"):
 #     s = (rec.seq)
-
-# from collections import defaultdict
 
 # sdict = defaultdict(int) #makes all values 0
 
@@ -405,7 +386,7 @@
     
 # for x in range(len(s)):
 #     kmer = (s[x:x+4]) #go back 4 letter increments
-#     if len(kmer) == 4: #only 4 letter increments, could just cut off 3 letters in range? Like this: for x in range(len(s) - 3):
+#     if len(kmer) == 4:
 #         sdict[kmer] += 1
 
 # print(' '.join(map(str, sdict.values()))) #print with no commas or brackets, just spaces 
@@ -414,23 +395,20 @@
 #Problem 37
 #Speeding Up Motif Finding
 
-# from Bio import SeqIO
+from Bio import SeqIO
 
-# # s = ""
-# # for rec in SeqIO.parse("C:/Users/Matt/downloads/rosalind_kmp(1).txt", "fasta"):
-# #     s = (rec.seq)
+for rec in SeqIO.parse("./Rosalind_files/rosalind_kmp.txt", "fasta"):
+    s = (rec.seq)
 
-# s = "CAGCATGGTATCACAGCAGAG"
-# y = len(s)
-# array = [0 for _ in range(y)]
+y = len(s)
+array = [0 for _ in range(y)]
 
-# j = 0
-# for i in range(1, y):
-#     print(j)
-#     while j > 0 and s[i] != s[j]:
-#         j = array[j-1]
-#     if s[i] == s[j]:
-#         j += 1
-#         array[i] = j
+j = 0
+for i in range(1, y):
+    while j > 0 and s[i] != s[j]:
+        j = array[j-1]
+    if s[i] == s[j]:
+        j += 1
+        array[i] = j
 
-# print(' '.join(map(str, array)))
+print(' '.join(map(str, array)))
