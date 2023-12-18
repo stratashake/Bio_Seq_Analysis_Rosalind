@@ -392,23 +392,23 @@
 # print(' '.join(map(str, sdict.values()))) #print with no commas or brackets, just spaces 
 
 ######################################################################################################
-#Problem 37
-#Speeding Up Motif Finding
+# #Problem 37
+# #Speeding Up Motif Finding
 
-from Bio import SeqIO
+# from Bio import SeqIO
 
-for rec in SeqIO.parse("./Rosalind_files/rosalind_kmp.txt", "fasta"):
-    s = (rec.seq)
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_kmp.txt", "fasta"):
+#     s = (rec.seq)
 
-y = len(s)
-array = [0 for _ in range(y)]
+# y = len(s)
+# array = [0 for _ in range(y)]
 
-j = 0
-for i in range(1, y):
-    while j > 0 and s[i] != s[j]:
-        j = array[j-1]
-    if s[i] == s[j]:
-        j += 1
-        array[i] = j
+# j = 0
+# for i in range(1, y):
+#     while j > 0 and s[i] != s[j]:
+#         j = array[j-1]
+#     if s[i] == s[j]:
+#         j += 1
+#         array[i] = j
 
-print(' '.join(map(str, array)))
+# print(' '.join(map(str, array)))
