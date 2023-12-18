@@ -2,7 +2,7 @@
 
 ## Description: 
 This project involves solving problems from [Rosalind.info](https://rosalind.info/problems/list-view/). 
-The scripts are organized as follows: `Rosalind_1_25.py` covers problems 1-25, 'Rosalind_26_50.py' covers the next 25 problems, and so on.
+The scripts are organized as follows: 'Rosalind_1_25.py' covers problems 1-25, 'Rosalind_26_50.py' covers the next 25 problems, and so on.
 
 ## Motivation: 
 The purpose of this project is to enhance my Python skills and stay current with bioinformatics algorithms, 
