@@ -669,29 +669,29 @@
 # print(translate(spliced_rna))
 
 ######################################################################################################
-# # Problem 23
-# # Enumerating k-mers Lexicographically
+# Problem 23
+# Enumerating k-mers Lexicographically
 
-# from itertools import product
+from itertools import product
 
-# with open ("./Rosalind_files/rosalind_lexf.txt") as f:
-#     x = f.readlines()
+with open ("./Rosalind_files/rosalind_lexf.txt") as f:
+    x = f.readlines()
 
-# alphabet = x[0].strip()
-# alphabet = alphabet.replace(" ", "")
-# n = int(x[1])
+alphabet = x[0].strip()
+alphabet = alphabet.replace(" ", "")
+n = int(x[1])
 
-# len_alpha = (len(alphabet))
+len_alpha = (len(alphabet))
 
-# alphadict = {}
+alphadict = {}
 
-# for x,y in zip(range(len_alpha), alphabet):
-#     alphadict[x] = y
+for x,y in zip(range(len_alpha), alphabet):
+    alphadict[x] = y
 
-# perms = product(alphadict.values(), repeat=n)
+perms = product(alphadict.values(), repeat=n)
 
-# for perm in perms:
-#     print(''.join(perm))
+for perm in perms:
+    print(''.join(perm))
 
 ######################################################################################################
 ##Problem 24

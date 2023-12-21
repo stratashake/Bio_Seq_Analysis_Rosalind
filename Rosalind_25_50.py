@@ -459,5 +459,40 @@
 # print(output)
 
 ######################################################################################################
-# #Problem 39
-# #Finding a Shared Spliced Motif
+# # #Problem 39
+# # #Ordering Strings of Varying Length Lexicographically 
+
+# from itertools import product
+
+# with open("./Rosalind_files/rosalind_lexv.txt") as f:
+#     lines = f.readlines()
+
+
+# alpha = (lines[0].strip())
+# alpha = "".join(alpha.split())
+# num = int(lines[1].strip())
+
+# lst = []
+
+# for x in range((num)):
+#     lst.append((list(product(alpha, repeat = x+1))))
+
+# flatlst = [item for sublist in lst for item in sublist]
+
+# alphadict = {}
+# for i, alph in enumerate(alpha):
+#     alphadict[alph] = int(i)
+
+# # Function to get the sorting key for each product
+# def sort_key(product):
+#     # Convert the product tuple into a list of ranks based on the custom alphabet
+#     return [alphadict.get(letter, float('inf')) for letter in product]
+
+# # Sort the list of products
+# flatlst.sort(key=sort_key)
+
+# for x in flatlst:
+#     x = ''.join(map(str, x))
+#     print(x)
+
+# # I suggest using this command to view the results instead of printing to the terminal: "python .\Rosalind_25_50.py > output.txt"
