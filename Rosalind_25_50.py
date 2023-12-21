@@ -108,7 +108,7 @@
 
 ######################################################################################################
 # #Problem 31
-# #Finding a Spliced Motif
+# #Transitions and Transversions 
 
 # from Bio import SeqIO
 
@@ -411,3 +411,53 @@
 #         j += 1
 #         array[i] = j
 # print(' '.join(map(str, array))) 
+
+######################################################################################################
+# #Problem 38
+# #Finding a Shared Spliced Motif
+
+# from Bio import SeqIO
+
+# fastas = []
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_lcsq.txt", "fasta"):
+#     str_seq = str(rec.seq)
+#     fastas.append(str_seq)  
+
+# def lcs(X, Y):
+#     """Function is an iterative based longest common subsequence algorithm using dynamic programming"""
+#     m = len(X)
+#     n = len(Y)
+#     L = [[0] * (n + 1) for _ in range(m + 1)] #creates the empty 2D array, add 1 because arrays start at 0
+ 
+#     for i in range(1, m + 1): #iterates over the "rows"
+#         for j in range(1, n + 1): #iterates over the "columns"
+#             if X[i - 1] == Y[j - 1]:
+#                 L[i][j] = L[i - 1][j - 1] + 1 #adds 1 to the cell in the array where the subsequence matches 
+#                                               #also, this line is utilized if the last character of X and Y match
+#             else:
+#                 L[i][j] = max(L[i - 1][j], L[i][j - 1]) #If the last character of the two strings don't match
+#                                                         # we find which direction to go in to the find the highest value 
+#                                                         # relative to it being the x or y string 
+ 
+#     lcs = ""    # Initialize an empty string to hold the longest common subsequence
+#     i = m       # Set i to the length of X, which is the number of rows in L
+#     j = n       # Set j to the length of Y, which is the number of columns in L
+#     while i > 0 and j > 0:  # While we have not reached the beginning of either string
+#         if X[i - 1] == Y[j - 1]: #if we don't subtract one, we get out of range error because python starts indexing at 0
+#             lcs = X[i-1] + lcs  # Add the current character to the beginning of the lcs string each time, which "reverses" the 2D array
+#                                 #with regard to how the dynamic programing is searching it, which is bottom right to top left
+#             i -= 1
+#             j -= 1
+#         elif L[i][j - 1] > L[i - 1][j]: #these lines move us from the bottom right to the 
+#             j -= 1                      #upper left where we get to the 0 corner of the array
+#         else:                           #the direction we move depends on which string is longer at the moment, so either up or left
+#             i -= 1
+#     return lcs
+
+
+# output = (lcs(*fastas))
+# print(output)
+
+######################################################################################################
+# #Problem 39
+# #Finding a Shared Spliced Motif
