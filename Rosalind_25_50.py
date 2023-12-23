@@ -522,23 +522,28 @@
 # #Problem 41
 # #Creating a Distance Matrix
 
-from Bio import SeqIO
+# from Bio import SeqIO
 
-fastas = []
-for rec in SeqIO.parse("./Rosalind_files/rosalind_pdst.txt", "fasta"):
-    str_seq = str(rec.seq)
-    fastas.append(str_seq) 
+# fastas = []
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_pdst.txt", "fasta"):
+#     str_seq = str(rec.seq)
+#     fastas.append(str_seq) 
 
-# Initialize a matrix to store the distances
-distance_matrix = [[0 for x in range(len(fastas))] for x in range(len(fastas))]
+# # Initialize a matrix to store the distances
+# distance_matrix = [[0 for x in range(len(fastas))] for x in range(len(fastas))]
 
-for i, fasta1 in enumerate(fastas):
-    for j, fasta2 in enumerate(fastas):
-        if i != j:
-            mismatches = sum(1 for a, b in zip(fasta1, fasta2) if a != b)
-            distance = mismatches / len(fasta1)
-            distance_matrix[i][j] = distance
+# for i, fasta1 in enumerate(fastas):
+#     for j, fasta2 in enumerate(fastas):
+#         if i != j:
+#             mismatches = sum(1 for a, b in zip(fasta1, fasta2) if a != b)
+#             distance = mismatches / len(fasta1)
+#             distance_matrix[i][j] = distance
 
-# Print the distance matrix
-for row in distance_matrix:
-    print(" ".join(f"{dist:.5f}" for dist in row))
+# for row in distance_matrix:
+#     print(" ".join(f"{dist:.5f}" for dist in row))
+
+######################################################################################################
+# #Problem 42
+# #Reversal Distance
+l = "hello world"
+item for i in range(0,len(l),len(l)/2) for item in l[i:i+len(l)/2][::-1]
