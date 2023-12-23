@@ -1,6 +1,6 @@
 ######################################################################################################
-# #Problem 26
-# #Perfect Matchings and RNA Secondary Structures
+#Problem 26
+#Perfect Matchings and RNA Secondary Structures
 
 # from math import factorial as fac
 # from Bio import SeqIO
