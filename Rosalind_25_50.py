@@ -496,3 +496,24 @@
 #     print(x)
 
 # # I suggest using this command to view the results instead of printing to the terminal: "python .\Rosalind_25_50.py > output.txt"
+
+######################################################################################################
+# #Problem 40
+# #Maximum Matchings and RNA Secondary StructuresOrdering Strings of Varying Length Lexicographically 
+
+from Bio import SeqIO
+from math import factorial
+
+for rec in SeqIO.parse("./Rosalind_files/rosalind_mmch.txt", "fasta"):
+    rna = str(rec.seq)
+
+A = rna.count('A')
+C = rna.count('C')
+U = rna.count('U')
+G = rna.count('G')
+
+#Have to use '//' instead of '/' to remove memory inprecision that can arise with large number
+#calculations in Python
+AU = factorial(max(A, U)) // factorial(max(A, U) - min(A, U))
+GC = factorial(max(G, C)) // factorial(max(G, C) - min(G, C))
+print(int(AU * GC))
