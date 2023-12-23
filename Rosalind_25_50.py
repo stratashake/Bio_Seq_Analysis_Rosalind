@@ -496,3 +496,54 @@
 #     print(x)
 
 # # I suggest using this command to view the results instead of printing to the terminal: "python .\Rosalind_25_50.py > output.txt"
+
+######################################################################################################
+# #Problem 40
+# #Maximum Matchings and RNA Secondary Structures
+
+# from Bio import SeqIO
+# from math import factorial
+
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_mmch.txt", "fasta"):
+#     rna = str(rec.seq)
+
+# A = rna.count('A')
+# C = rna.count('C')
+# U = rna.count('U')
+# G = rna.count('G')
+
+# #Have to use '//' instead of '/' to remove memory inprecision that can arise with large number
+# #calculations in Python
+# AU = factorial(max(A, U)) // factorial(max(A, U) - min(A, U))
+# GC = factorial(max(G, C)) // factorial(max(G, C) - min(G, C))
+# print(int(AU * GC))
+
+######################################################################################################
+# #Problem 41
+# #Creating a Distance Matrix
+
+# from Bio import SeqIO
+
+# fastas = []
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_pdst.txt", "fasta"):
+#     str_seq = str(rec.seq)
+#     fastas.append(str_seq) 
+
+# # Initialize a matrix to store the distances
+# distance_matrix = [[0 for x in range(len(fastas))] for x in range(len(fastas))]
+
+# for i, fasta1 in enumerate(fastas):
+#     for j, fasta2 in enumerate(fastas):
+#         if i != j:
+#             mismatches = sum(1 for a, b in zip(fasta1, fasta2) if a != b)
+#             distance = mismatches / len(fasta1)
+#             distance_matrix[i][j] = distance
+
+# for row in distance_matrix:
+#     print(" ".join(f"{dist:.5f}" for dist in row))
+
+######################################################################################################
+# #Problem 42
+# #Reversal Distance
+l = "hello world"
+item for i in range(0,len(l),len(l)/2) for item in l[i:i+len(l)/2][::-1]
