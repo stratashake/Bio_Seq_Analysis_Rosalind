@@ -611,59 +611,52 @@
 
 #     print(total_reversals)
 
-#This was a script I found online, it is not my code:
-# def _get_reverse_array(s):
-#     reverse_arrays = []
-#     for i in range(len(s)-1):
-#         for j in range(i+1, len(s)):
-#             r_list = s[i:j+1]
-#             r_list.reverse()
-#             reverse_arrays.append(s[:i] + r_list + s[j+1:])
-#     return reverse_arrays
+"""This was a script I was able to create with quite a bit of help with chatgpt. I learned more about 
+data structure and algorithms by learning how this code works and feel more confident in implementing solutions like 
+this in the future. This is a Bidirectional Breadth-First Search (BFS) algorithm.
+The algorithm efficiently explores the space of permutations by generating all 
+possible reversals of each permutation from both ends of the search. It progressively works towards finding a common 
+permutation that can be reached from both the original and the target permutations, effectively meeting in the middle.
+""" 
 
-# def _get_reversal_distance(s1, s2, distance):
-#     # reverse s1 to s2, and reverse s2 to s1 at same time.
-#     if s1 & s2:
-#         return distance
-#     # get the reversal array of s1.
-#     new_s1 = set()
-#     for s in s1:
-#         reverse_arrays = _get_reverse_array(list(s))
-#         for r in reverse_arrays:
-#             new_s1.add(tuple(r))
-#     # get the reversal array of s2.
-#     new_s2 = set()
-#     for s in s2:
-#         reverse_arrays = _get_reverse_array(list(s))
-#         for r in reverse_arrays:
-#             new_s2.add(tuple(r))
-#     # thus we reverse s1 and s2 at same time, so distance plus 2. 
-#     distance += 2
-#     # if s1 and the reversal array of s2 has the same array, distance substract 1.
-#     if s1 & new_s2:
-#         return distance-1
-#     # if s2 and the reversal array of s1 has the same array, distance substract 1.
-#     if s2 & new_s1:
-#         return distance-1
-#     # if reversal array of s1 and the reversal array of s2 has the same array, return distance.
-#     if new_s1 & new_s2:
-#         return distance
-    
-#     distance = _get_reversal_distance(new_s1, new_s2, distance)
-#     return distance
+def generate_reversed_permutations(perm):
+    """Generate all permutations of 'perm' by reversing its contiguous subsequences."""
+    for i in range(len(perm)):
+        for j in range(i+2, len(perm)+1):
+            yield perm[:i] + perm[i:j][::-1] + perm[j:]
 
+def find_min_reversal_distance(s1, s2):
+    """Find the minimum reversal distance between two permutations."""
+    if s1 == s2:
+        return 0
 
-# if __name__ == "__main__":
-#     # load data
-#     with open("./Rosalind_files/rosalind_rear.txt", "r") as f:
-#         lines = [line.strip().split(" ") for line in f.readlines() if line.strip()]
-#     for i in range(0, len(lines), 2):
-#         a = [l for l in lines[i]]
-#         b = [l for l in lines[i+1]]
-#         distance, s1, s2 = 0, set(), set()
-#         s1.add(tuple(a)), s2.add(tuple(b))
-#         d = _get_reversal_distance(s1, s2, distance)
-#         print(d)
+    visited = {tuple(s1): 0, tuple(s2): 0}
+    queue = [(tuple(s1), 1), (tuple(s2), -1)]  # Positive for s1, negative for s2
+
+    while queue:
+        current, direction = queue.pop(0) # Explore the queue in the order it's made
+        current_distance = visited[current]
+        next_distance = current_distance + (1 if direction > 0 else -1)
+
+        for next_perm in generate_reversed_permutations(current):
+            next_perm = tuple(next_perm)
+            if next_perm in visited:
+                if visited[next_perm] * direction < 0:  # Opposite direction found, only want opposite direction
+                    # Add 1 to account for the final connecting reversal
+                    return abs(visited[next_perm]) + abs(current_distance) + 1
+                continue
+
+            visited[next_perm] = next_distance # Appends each permuation with corresponding number of reversions to that point
+            queue.append((next_perm, direction))
+
+    return ("No solution found")
+
+# Read data and calculate reversal distances
+with open("./Rosalind_files/rosalind_rear.txt", "r") as f:
+    lines = [list(map(int, line.strip().split())) for line in f.readlines() if line.strip()]
+    for i in range(0, len(lines), 2):
+        distance = find_min_reversal_distance(lines[i], lines[i + 1])
+        print(distance, end=' ') # Gives correct formated output
 
 ######################################################################################################
 # #Problem 43
