@@ -684,3 +684,25 @@
 #     return(odds_appear)
 
 # print("%0.3f" % rand_string_calc(x, s, n))
+
+######################################################################################################
+# #Problem 44
+# #Counting Subsets
+
+with open("./Rosalind_files/rosalind_sset.txt") as f:
+    n = int(f.read().strip())
+    
+print((2**n % 1000000))
+
+# from itertools import combinations
+
+# n = 10
+# numbers = list(range(1,n+1))
+# list = []
+
+# for x in range(1,n+1):
+#     for p in combinations(numbers, x):
+#         list.append(p)
+
+# answer = (len(list)) % 1000000 + 1
+# print(answer)
