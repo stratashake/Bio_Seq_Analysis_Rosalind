@@ -611,54 +611,76 @@
 
 #     print(total_reversals)
 
-"""This was a script I was able to create with quite a bit of help with chatgpt. I learned more about 
-data structure and algorithms by learning how this code works and feel more confident in implementing solutions like 
-this in the future. This is a Bidirectional Breadth-First Search (BFS) algorithm.
-The algorithm efficiently explores the space of permutations by generating all 
-possible reversals of each permutation from both ends of the search. It progressively works towards finding a common 
-permutation that can be reached from both the original and the target permutations, effectively meeting in the middle.
-""" 
+# """This was a script I was able to create with quite a bit of help with chatgpt. I learned more about 
+# data structure and algorithms by learning how this code works and feel more confident in implementing solutions like 
+# this in the future. This is a Bidirectional Breadth-First Search (BFS) algorithm.
+# The algorithm efficiently explores the space of permutations by generating all 
+# possible reversals of each permutation from both ends of the search. It progressively works towards finding a common 
+# permutation that can be reached from both the original and the target permutations, effectively meeting in the middle.
+# """ 
 
-def generate_reversed_permutations(perm):
-    """Generate all permutations of 'perm' by reversing its contiguous subsequences."""
-    for i in range(len(perm)):
-        for j in range(i+2, len(perm)+1):
-            yield perm[:i] + perm[i:j][::-1] + perm[j:]
+# def generate_reversed_permutations(perm):
+#     """Generate all permutations of 'perm' by reversing its contiguous subsequences."""
+#     for i in range(len(perm)):
+#         for j in range(i+2, len(perm)+1):
+#             yield perm[:i] + perm[i:j][::-1] + perm[j:]
 
-def find_min_reversal_distance(s1, s2):
-    """Find the minimum reversal distance between two permutations."""
-    if s1 == s2:
-        return 0
+# def find_min_reversal_distance(s1, s2):
+#     """Find the minimum reversal distance between two permutations."""
+#     if s1 == s2:
+#         return 0
 
-    visited = {tuple(s1): 0, tuple(s2): 0}
-    queue = [(tuple(s1), 1), (tuple(s2), -1)]  # Positive for s1, negative for s2
+#     visited = {tuple(s1): 0, tuple(s2): 0}
+#     queue = [(tuple(s1), 1), (tuple(s2), -1)]  # Positive for s1, negative for s2
 
-    while queue:
-        current, direction = queue.pop(0) # Explore the queue in the order it's made
-        current_distance = visited[current]
-        next_distance = current_distance + (1 if direction > 0 else -1)
+#     while queue:
+#         current, direction = queue.pop(0) # Explore the queue in the order it's made
+#         current_distance = visited[current]
+#         next_distance = current_distance + (1 if direction > 0 else -1)
 
-        for next_perm in generate_reversed_permutations(current):
-            next_perm = tuple(next_perm)
-            if next_perm in visited:
-                if visited[next_perm] * direction < 0:  # Opposite direction found, only want opposite direction
-                    # Add 1 to account for the final connecting reversal
-                    return abs(visited[next_perm]) + abs(current_distance) + 1
-                continue
+#         for next_perm in generate_reversed_permutations(current):
+#             next_perm = tuple(next_perm)
+#             if next_perm in visited:
+#                 if visited[next_perm] * direction < 0:  # Opposite direction found, only want opposite direction
+#                     # Add 1 to account for the final connecting reversal
+#                     return abs(visited[next_perm]) + abs(current_distance) + 1
+#                 continue
 
-            visited[next_perm] = next_distance # Appends each permuation with corresponding number of reversions to that point
-            queue.append((next_perm, direction))
+#             visited[next_perm] = next_distance # Appends each permuation with corresponding number of reversions to that point, if not already apended
+#             queue.append((next_perm, direction))
 
-    return ("No solution found")
+#     return ("No solution found")
 
-# Read data and calculate reversal distances
-with open("./Rosalind_files/rosalind_rear.txt", "r") as f:
-    lines = [list(map(int, line.strip().split())) for line in f.readlines() if line.strip()]
-    for i in range(0, len(lines), 2):
-        distance = find_min_reversal_distance(lines[i], lines[i + 1])
-        print(distance, end=' ') # Gives correct formated output
+# # Read data and calculate reversal distances
+# with open("./Rosalind_files/rosalind_rear.txt", "r") as f:
+#     lines = [list(map(int, line.strip().split())) for line in f.readlines() if line.strip()]
+#     for i in range(0, len(lines), 2):
+#         distance = find_min_reversal_distance(lines[i], lines[i + 1])
+#         print(distance, end=' ') # Gives correct formated output
 
 ######################################################################################################
 # #Problem 43
 # #Matching Random Motifs
+   
+# with open("./Rosalind_files/rosalind_rstr.txt") as f:
+#     lines = [line for line in f]
+#     n, x = lines[0].split()
+#     n = int(n)
+#     x = float(x)
+#     s = lines[1].strip() 
 
+# def rand_string_calc(x, s, n):
+
+#     GC = (x/2)
+#     AT = ((1 - x) / 2)
+
+#     C = (s.count('C'))
+#     G = (s.count('G'))
+#     A = (s.count('A'))
+#     T = (s.count('T'))
+
+#     odds = (GC ** G) * (GC ** C) * (AT ** A) * (AT ** T)
+#     odds_appear = 1 - ((1 - odds) ** n)
+#     return(odds_appear)
+
+# print("%0.3f" % rand_string_calc(x, s, n))
