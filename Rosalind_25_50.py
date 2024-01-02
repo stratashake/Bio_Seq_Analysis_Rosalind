@@ -712,14 +712,44 @@
 # #Problem 45
 # #Introduction to Alternative Splicing
 
-with open("./Rosalind_files/rosalind_aspc.txt") as f:
-    line = f.readline()
-    n, m = map(int, line.split())
+# with open("./Rosalind_files/rosalind_aspc.txt") as f:
+#     line = f.readline()
+#     n, m = map(int, line.split())
 
-from math import factorial as fac
-sum = 0
+# from math import factorial as fac
+# sum = 0
 
-for k in range(m, n + 1):
-    sum += (fac(n))//(fac(k)*(fac(n-k)))
+# for k in range(m, n + 1):
+#     sum += (fac(n))//(fac(k)*(fac(n-k)))
 
-print(sum % 1000000)
+# print(sum % 1000000)
+
+######################################################################################################
+# #Problem 46
+# #Edit Distance
+
+from Bio import SeqIO
+
+sequences = [str(rec.seq) for rec in SeqIO.parse("./Rosalind_files/rosalind_edit.txt", "fasta")]
+
+s, t = sequences[0], sequences[1]
+
+def edit_distance(s, t): 
+    dp = [[0] * (len(t)+1) for _ in range(len(s)+1)]
+
+    for i in range(len(s)+1):
+        for j in range(len(t)+1):
+            if i == 0:
+                dp[i][j] = j
+            elif j == 0:
+                dp[i][j] = i
+            elif s[i-1] == t[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1 + min(dp[i - 1][j],    # Insertion
+                                   dp[i][j - 1],    # Deletion
+                                   dp[i - 1][j - 1]) # Substitution
+
+    return dp[len(s)][len(t)]
+
+print(edit_distance(s,t))
