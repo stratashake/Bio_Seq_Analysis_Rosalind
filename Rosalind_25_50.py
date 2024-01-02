@@ -714,12 +714,12 @@
 
 with open("./Rosalind_files/rosalind_aspc.txt") as f:
     line = f.readline()
-    num1, num2 = map(int, line.split())
+    n, m = map(int, line.split())
 
 from math import factorial as fac
 sum = 0
 
-for x in range(num2, num1 + 1):
-    sum += (fac(num1))//(fac(x)*(fac(num1-x)))
+for k in range(m, n + 1):
+    sum += (fac(n))//(fac(k)*(fac(n-k)))
 
 print(sum % 1000000)
