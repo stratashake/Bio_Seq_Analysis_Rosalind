@@ -689,20 +689,37 @@
 # #Problem 44
 # #Counting Subsets
 
-with open("./Rosalind_files/rosalind_sset.txt") as f:
-    n = int(f.read().strip())
+# with open("./Rosalind_files/rosalind_sset.txt") as f:
+#     n = int(f.read().strip())
     
-print((2**n % 1000000))
+# print((2**n % 1000000))
 
-# from itertools import combinations
+## This is an unwieldly and bad attempt that uses too much memory, but it works
+# # from itertools import combinations
 
-# n = 10
-# numbers = list(range(1,n+1))
-# list = []
+# # n = 10
+# # numbers = list(range(1,n+1))
+# # list = []
 
-# for x in range(1,n+1):
-#     for p in combinations(numbers, x):
-#         list.append(p)
+# # for x in range(1,n+1):
+# #     for p in combinations(numbers, x):
+# #         list.append(p)
 
-# answer = (len(list)) % 1000000 + 1
-# print(answer)
+# # answer = (len(list)) % 1000000 + 1
+# # print(answer)
+
+######################################################################################################
+# #Problem 45
+# #Introduction to Alternative Splicing
+
+with open("./Rosalind_files/rosalind_aspc.txt") as f:
+    line = f.readline()
+    num1, num2 = map(int, line.split())
+
+from math import factorial as fac
+sum = 0
+
+for x in range(num2, num1 + 1):
+    sum += (fac(num1))//(fac(x)*(fac(num1-x)))
+
+print(sum % 1000000)
