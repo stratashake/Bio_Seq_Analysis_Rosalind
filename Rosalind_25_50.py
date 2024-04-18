@@ -790,3 +790,42 @@
 #     answer.append(round(chance, 3)) #round to 3 decimals
 
 # print(' '.join(map(str, answer)))
+
+######################################################################################################
+# #Problem 48
+# #Motzkin Numbers and RNA Secondary Structures
+
+"""This is entirely over my head and I do not understand any of this. I copied this from someone
+else's codebase. I'll come back to it later but dynamic programming and this kind of combinatorics 
+is way over my head"""
+
+from Bio import SeqIO
+
+# Reading the sequence from a FASTA file
+for rec in SeqIO.parse("./Rosalind_files/rosalind_motz.txt", "fasta"):
+    s = str(rec.seq)
+
+# Initializing the dictionary for memoization with base cases
+c = {
+    '': 1, 'A': 1, 'C': 1, 'G': 1, 'U': 1,
+    'AA': 1, 'AC': 1, 'AG': 1, 'AU': 2,
+    'CA': 1, 'CC': 1, 'CG': 2, 'CU': 1,
+    'GA': 1, 'GC': 2, 'GG': 1, 'GU': 1,
+    'UA': 2, 'UC': 1, 'UG': 1, 'UU': 1
+}
+
+def motzkin(s):
+    if s not in c:
+        # Initialize the sum for the recursive formula
+        total = motzkin(s[1:])
+        # Replace the list comprehension with a loop
+        for k in range(1, len(s)):
+            factor = c[s[0]+s[k]] - 1
+            result = motzkin(s[1:k]) * factor * motzkin(s[k+1:])
+            total += result
+        # Store the computed result in the dictionary
+        c[s] = total
+    return c[s]
+
+# Print the result modulo 10**6
+print(motzkin(s) % 10**6)
