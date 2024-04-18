@@ -728,28 +728,50 @@
 # #Problem 46
 # #Edit Distance
 
-from Bio import SeqIO
+# from Bio import SeqIO
 
-sequences = [str(rec.seq) for rec in SeqIO.parse("./Rosalind_files/rosalind_edit.txt", "fasta")]
+# sequences = [str(rec.seq) for rec in SeqIO.parse("./Rosalind_files/rosalind_edit.txt", "fasta")]
 
-s, t = sequences[0], sequences[1]
+# s, t = sequences[0], sequences[1]
 
-def edit_distance(s, t): 
-    dp = [[0] * (len(t)+1) for _ in range(len(s)+1)]
+# def edit_distance(s, t): 
+#     dp = [[0] * (len(t)+1) for _ in range(len(s)+1)]
 
-    for i in range(len(s)+1):
-        for j in range(len(t)+1):
-            if i == 0:
-                dp[i][j] = j
-            elif j == 0:
-                dp[i][j] = i
-            elif s[i-1] == t[j-1]:
-                dp[i][j] = dp[i-1][j-1]
-            else:
-                dp[i][j] = 1 + min(dp[i - 1][j],    # Insertion
-                                   dp[i][j - 1],    # Deletion
-                                   dp[i - 1][j - 1]) # Substitution
+#     for i in range(len(s)+1):
+#         for j in range(len(t)+1):
+#             if i == 0:
+#                 dp[i][j] = j
+#             elif j == 0:
+#                 dp[i][j] = i
+#             elif s[i-1] == t[j-1]:
+#                 dp[i][j] = dp[i-1][j-1]
+#             else:
+#                 dp[i][j] = 1 + min(dp[i - 1][j],    # Insertion
+#                                    dp[i][j - 1],    # Deletion
+#                                    dp[i - 1][j - 1]) # Substitution
 
-    return dp[len(s)][len(t)]
+#     return dp[len(s)][len(t)]
 
-print(edit_distance(s,t))
+# print(edit_distance(s,t))
+
+######################################################################################################
+# #Problem 47
+# #Expected Number of Restriction Sites
+
+n = 10
+s = "AGGG"
+length_s = len(s)
+array = [0.25]
+
+list_num = list(range(n))
+
+
+for x in array:
+    G = x/2
+    C = x/2
+    A = (1-x)/2
+    T = (1-x)/2
+
+    for y in range(len(list_num) - length_s + 1):  #Stop before shorter chunks begin
+        chunk = (list_num[y:y + length_s])
+        print(chunk)
