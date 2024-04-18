@@ -758,13 +758,15 @@
 # #Problem 47
 # #Expected Number of Restriction Sites
 
-n = 10
-s = "AGGG"
+with open("./Rosalind_files/rosalind_eval.txt") as f: 
+    string = f.readlines()
+
+n = int(string[0])
+s = string[1]
 length_s = len(s)
-array = [0.25]
+array = [float(x) for x in string[2].split()]
 
-list_num = list(range(n))
-
+answer = []
 
 for x in array:
     G = x/2
@@ -772,7 +774,19 @@ for x in array:
     A = (1-x)/2
     T = (1-x)/2
 
-    for y in range(len(list_num) - length_s + 1):  #Stop before shorter chunks begin
-        chunk = (list_num[y:y + length_s])
-        print(chunk)
-d
+    prob = 1
+    for char in s:
+        if char == "G":
+            prob *= G
+        elif char == 'C':
+            prob *= C
+        elif char == 'A':
+            prob *= A
+        elif char == 'T':
+            prob *= T
+
+    combos = n - length_s + 1 #number of possible combinations according to the length of "s"
+    chance = (prob * combos) #additive property of expected number
+    answer.append(round(chance, 3)) #round to 3 decimals
+
+print(' '.join(map(str, answer)))
