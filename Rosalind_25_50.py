@@ -758,35 +758,35 @@
 # #Problem 47
 # #Expected Number of Restriction Sites
 
-with open("./Rosalind_files/rosalind_eval.txt") as f: 
-    string = f.readlines()
+# with open("./Rosalind_files/rosalind_eval.txt") as f: 
+#     string = f.readlines()
 
-n = int(string[0])
-s = string[1]
-length_s = len(s)
-array = [float(x) for x in string[2].split()]
+# n = int(string[0])
+# s = string[1]
+# length_s = len(s)
+# array = [float(x) for x in string[2].split()]
 
-answer = []
+# answer = []
 
-for x in array:
-    G = x/2
-    C = x/2
-    A = (1-x)/2
-    T = (1-x)/2
+# for x in array:
+#     G = x/2
+#     C = x/2
+#     A = (1-x)/2
+#     T = (1-x)/2
 
-    prob = 1
-    for char in s:
-        if char == "G":
-            prob *= G
-        elif char == 'C':
-            prob *= C
-        elif char == 'A':
-            prob *= A
-        elif char == 'T':
-            prob *= T
+#     prob = 1
+#     for char in s:
+#         if char == "G":
+#             prob *= G
+#         elif char == 'C':
+#             prob *= C
+#         elif char == 'A':
+#             prob *= A
+#         elif char == 'T':
+#             prob *= T
 
-    combos = n - length_s + 1 #number of possible combinations according to the length of "s"
-    chance = (prob * combos) #additive property of expected number
-    answer.append(round(chance, 3)) #round to 3 decimals
+#     combos = n - length_s + 1 #number of possible combinations according to the length of "s"
+#     chance = (prob * combos) #additive property of expected number
+#     answer.append(round(chance, 3)) #round to 3 decimals
 
-print(' '.join(map(str, answer)))
+# print(' '.join(map(str, answer)))
