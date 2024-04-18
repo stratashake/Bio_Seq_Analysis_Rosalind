@@ -775,3 +775,4 @@ for x in array:
     for y in range(len(list_num) - length_s + 1):  #Stop before shorter chunks begin
         chunk = (list_num[y:y + length_s])
         print(chunk)
+d
