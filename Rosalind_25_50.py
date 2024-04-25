@@ -795,37 +795,84 @@
 # #Problem 48
 # #Motzkin Numbers and RNA Secondary Structures
 
-"""This is entirely over my head and I do not understand any of this. I copied this from someone
-else's codebase. I'll come back to it later but dynamic programming and this kind of combinatorics 
-is way over my head"""
+# """This is entirely over my head and I do not understand most of this. I copied this from someone
+# else's codebase. I'll come back to it later but dynamic programming and this kind of combinatorics 
+# is over my head"""
 
-from Bio import SeqIO
+# from Bio import SeqIO
 
-# Reading the sequence from a FASTA file
-for rec in SeqIO.parse("./Rosalind_files/rosalind_motz.txt", "fasta"):
-    s = str(rec.seq)
+# # Reading the sequence from a FASTA file
+# for rec in SeqIO.parse("./Rosalind_files/rosalind_motz.txt", "fasta"):
+#     s = str(rec.seq)
 
-# Initializing the dictionary for memoization with base cases
-c = {
-    '': 1, 'A': 1, 'C': 1, 'G': 1, 'U': 1,
-    'AA': 1, 'AC': 1, 'AG': 1, 'AU': 2,
-    'CA': 1, 'CC': 1, 'CG': 2, 'CU': 1,
-    'GA': 1, 'GC': 2, 'GG': 1, 'GU': 1,
-    'UA': 2, 'UC': 1, 'UG': 1, 'UU': 1
-}
+# # Initializing the dictionary for memoization with base cases
+# c = {
+#     '': 1, 'A': 1, 'C': 1, 'G': 1, 'U': 1,
+#     'AA': 1, 'AC': 1, 'AG': 1, 'AU': 2,
+#     'CA': 1, 'CC': 1, 'CG': 2, 'CU': 1,
+#     'GA': 1, 'GC': 2, 'GG': 1, 'GU': 1,
+#     'UA': 2, 'UC': 1, 'UG': 1, 'UU': 1
+# }
 
-def motzkin(s):
-    if s not in c:
-        # Initialize the sum for the recursive formula
-        total = motzkin(s[1:])
-        # Replace the list comprehension with a loop
-        for k in range(1, len(s)):
-            factor = c[s[0]+s[k]] - 1
-            result = motzkin(s[1:k]) * factor * motzkin(s[k+1:])
-            total += result
-        # Store the computed result in the dictionary
-        c[s] = total
-    return c[s]
+# def motzkin(s):
+#     if s not in c:
+#         # Initialize the sum for the recursive formula
+#         total = motzkin(s[1:])
+#         # Replace the list comprehension with a loop
+#         for k in range(1, len(s)):
+#             factor = c[s[0]+s[k]] - 1
+#             result = motzkin(s[1:k]) * factor * motzkin(s[k+1:])
+#             total += result
+#         c[s] = total
+#     return c[s]
 
-# Print the result modulo 10**6
-print(motzkin(s) % 10**6)
+# # Print the result modulo 10**6
+# print(motzkin(s) % 10**6)
+
+######################################################################################################
+# #Problem 49
+# #Distances in Trees
+
+with open("./Rosalind_files/rosalind_nwck.txt") as f: 
+    trees = f.read().splitlines() 
+
+phylo = [] #the newick tree
+animals = [] #the two nodes of interest
+
+for x in range(0,len(trees),3):
+    phylo.append(trees[x])
+    animals.append(trees[x+1].split(" "))
+
+phy = (phylo[0])
+ani = (animals[0])
+
+def find_which_is_first_and_second(ani):
+    for x in ani:
+        hold1 = (phy.find(ani[0]))
+        hold2 = (phy.find(ani[1]))
+
+        if hold1 < hold2:
+            start1 = hold1
+            start2 = hold2
+        else:
+            start1 = hold2
+            start2 = hold1
+    return(start1, start2)
+
+print(find_which_is_first_and_second(ani))
+
+# Slice the string up to the specified position1
+substring1 = phy[:(find_which_is_first_and_second(ani)[0])]
+
+# Count the opening and closing parentheses
+count_open = substring1.count('(')
+count_close = substring1.count(')')
+print("Number of '('", count_open)
+print("Number of ')'", count_close)
+
+# position2 = position + len(ani[0]) #end of first animal
+# position3 = (phy.find(ani[1]))
+# substring2 = phy[position3:position]#remember to fix this in the function
+# print(substring)
+# print("\n\n")
+# print(substring2)
