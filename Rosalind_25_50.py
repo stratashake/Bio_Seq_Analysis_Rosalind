@@ -833,6 +833,9 @@
 # #Problem 49
 # #Distances in Trees
 
+from Bio import Phylo
+from io import StringIO
+
 with open("./Rosalind_files/rosalind_nwck.txt") as f: 
     trees = f.read().splitlines() 
 
@@ -844,50 +847,15 @@ for x in range(0,len(trees),3):
     phylo.append(trees[x])
     animals.append(trees[x+1].split(" "))
 
-def find_which_is_first_and_second(phy, ani):
-    hold1 = (phy.find(ani[0]))
-    hold2 = (phy.find(ani[1]))
 
-    if hold1 < hold2:
-        start1 = hold1
-        start2 = hold2
-        end1 = hold1 + len(ani[0])
-        end2 = hold2 + len(ani[1])   
-    else:
-        start1 = hold2
-        start2 = hold1
-        end1 = hold2 + len(ani[1])
-        end2 = hold1 + len(ani[0])
-
-    substring1 = phy[:start1]
-    # Count the opening and closing parentheses
-    count_open1 = substring1.count('(')
-    count_close1 = substring1.count(')')
-    print("Number of '('", count_open1)
-    print("Number of ')'", count_close1)
-
-    substring2 = phy[end1:start2]
-    count_open2 = substring2.count('(')
-    count_close2 = substring2.count(')')
-    print("Number of '('", count_open2)
-    print("Number of ')'", count_close2)
-
-    substring3 = phy[end2:]
-    count_open3 = substring3.count('(')
-    count_close3 = substring3.count(')')
-    print("Number of '('", count_open3)
-    print("Number of ')'", count_close3)
-
-    if count_close2 and count_open3 == 0:
-        ans = 2
-    elif count_close2 == 1:
-        ans = 1
-    else:
-        ans = count_close2   
-    
-    ans_list.append(ans)
+def newick_distance_finder(phy, ani):
+    tree = Phylo.read(StringIO(phy), "newick")
+    clades = tree.find_clades()
+    for clade in clades: #biopython was reading each branch/clade with a length of 0, originally. 
+        clade.branch_length = 1
+    ans_list.append(tree.distance(ani[0], ani[1]))
 
 for x,y in zip(phylo, animals):
-    find_which_is_first_and_second(x, y)
+    newick_distance_finder(x, y)
 
 print(' '.join(map(str, ans_list)))
