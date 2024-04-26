@@ -838,41 +838,56 @@ with open("./Rosalind_files/rosalind_nwck.txt") as f:
 
 phylo = [] #the newick tree
 animals = [] #the two nodes of interest
+ans_list = []
 
 for x in range(0,len(trees),3):
     phylo.append(trees[x])
     animals.append(trees[x+1].split(" "))
 
-phy = (phylo[0])
-ani = (animals[0])
+def find_which_is_first_and_second(phy, ani):
+    hold1 = (phy.find(ani[0]))
+    hold2 = (phy.find(ani[1]))
 
-def find_which_is_first_and_second(ani):
-    for x in ani:
-        hold1 = (phy.find(ani[0]))
-        hold2 = (phy.find(ani[1]))
+    if hold1 < hold2:
+        start1 = hold1
+        start2 = hold2
+        end1 = hold1 + len(ani[0])
+        end2 = hold2 + len(ani[1])   
+    else:
+        start1 = hold2
+        start2 = hold1
+        end1 = hold2 + len(ani[1])
+        end2 = hold1 + len(ani[0])
 
-        if hold1 < hold2:
-            start1 = hold1
-            start2 = hold2
-        else:
-            start1 = hold2
-            start2 = hold1
-    return(start1, start2)
+    substring1 = phy[:start1]
+    # Count the opening and closing parentheses
+    count_open1 = substring1.count('(')
+    count_close1 = substring1.count(')')
+    print("Number of '('", count_open1)
+    print("Number of ')'", count_close1)
 
-print(find_which_is_first_and_second(ani))
+    substring2 = phy[end1:start2]
+    count_open2 = substring2.count('(')
+    count_close2 = substring2.count(')')
+    print("Number of '('", count_open2)
+    print("Number of ')'", count_close2)
 
-# Slice the string up to the specified position1
-substring1 = phy[:(find_which_is_first_and_second(ani)[0])]
+    substring3 = phy[end2:]
+    count_open3 = substring3.count('(')
+    count_close3 = substring3.count(')')
+    print("Number of '('", count_open3)
+    print("Number of ')'", count_close3)
 
-# Count the opening and closing parentheses
-count_open = substring1.count('(')
-count_close = substring1.count(')')
-print("Number of '('", count_open)
-print("Number of ')'", count_close)
+    if count_close2 and count_open3 == 0:
+        ans = 2
+    elif count_close2 == 1:
+        ans = 1
+    else:
+        ans = count_close2   
+    
+    ans_list.append(ans)
 
-# position2 = position + len(ani[0]) #end of first animal
-# position3 = (phy.find(ani[1]))
-# substring2 = phy[position3:position]#remember to fix this in the function
-# print(substring)
-# print("\n\n")
-# print(substring2)
+for x,y in zip(phylo, animals):
+    find_which_is_first_and_second(x, y)
+
+print(' '.join(map(str, ans_list)))
