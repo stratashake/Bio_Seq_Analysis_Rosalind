@@ -833,29 +833,88 @@
 # #Problem 49
 # #Distances in Trees
 
-from Bio import Phylo
-from io import StringIO
+# from Bio import Phylo
+# from io import StringIO
 
-with open("./Rosalind_files/rosalind_nwck.txt") as f: 
-    trees = f.read().splitlines() 
+# with open("./Rosalind_files/rosalind_nwck.txt") as f: 
+#     trees = f.read().splitlines() 
 
-phylo = [] #the newick tree
-animals = [] #the two nodes of interest
-ans_list = []
+# phylo = [] #the newick tree
+# animals = [] #the two nodes of interest
+# ans_list = []
 
-for x in range(0,len(trees),3):
-    phylo.append(trees[x])
-    animals.append(trees[x+1].split(" "))
+# for x in range(0,len(trees),3):
+#     phylo.append(trees[x])
+#     animals.append(trees[x+1].split(" "))
 
 
-def newick_distance_finder(phy, ani):
-    tree = Phylo.read(StringIO(phy), "newick")
-    clades = tree.find_clades()
-    for clade in clades: #biopython was reading each branch/clade with a length of 0, originally. 
-        clade.branch_length = 1
-    ans_list.append(tree.distance(ani[0], ani[1]))
+# def newick_distance_finder(phy, ani):
+#     tree = Phylo.read(StringIO(phy), "newick")
+#     clades = tree.find_clades()
+#     for clade in clades: #biopython was reading each branch/clade with a length of 0, originally. 
+#         clade.branch_length = 1
+#     ans_list.append(tree.distance(ani[0], ani[1]))
 
-for x,y in zip(phylo, animals):
-    newick_distance_finder(x, y)
+# for x,y in zip(phylo, animals):
+#     newick_distance_finder(x, y)
 
-print(' '.join(map(str, ans_list)))
+# print(' '.join(map(str, ans_list)))
+
+######################################################################################################
+# #Problem 50
+# #Interleaving Two Motifs
+
+# with open("./Rosalind_files/rosalind_scsp.txt") as f: 
+#     string = f.readlines()
+
+# def scs_length(X, Y):
+#     m, n = len(X), len(Y)
+#     L = [[0] * (n + 1) for _ in range(m + 1)]
+
+#     # Initialize base cases
+#     for i in range(m+1):
+#         L[i][0] = i
+#     for j in range(n+1):
+#         L[0][j] = j
+
+#     # Fill the DP table
+#     for i in range(1, m+1):
+#         for j in range(1, n+1):
+#             if X[i-1] == Y[j-1]:
+#                 L[i][j] = L[i-1][j-1] + 1
+#             else:
+#                 L[i][j] = min(L[i-1][j], L[i][j-1]) + 1
+#     return L
+
+# def reconstruct_scs(L, X, Y):
+#     scs = ""
+#     m, n = len(X), len(Y)
+
+#     while m > 0 and n > 0:
+#         if X[m-1] == Y[n-1]:
+#             scs = X[m-1] + scs
+#             m -= 1
+#             n -= 1
+#         elif L[m-1][n] <= L[m][n-1]:
+#             scs = X[m-1] + scs
+#             m -= 1
+#         else:
+#             scs = Y[n-1] + scs
+#             n -= 1
+
+#     # Add any remaining characters from X or Y
+#     while m > 0:
+#         scs = X[m-1] + scs
+#         m -= 1
+#     while n > 0:
+#         scs = Y[n-1] + scs
+#         n -= 1
+
+#     return scs
+
+# s = string[0].strip()
+# t = string[1].strip()
+
+# table = scs_length(s, t)
+# scs = reconstruct_scs(table, s, t)
+# print(scs)
