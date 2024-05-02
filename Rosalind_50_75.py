@@ -38,3 +38,39 @@
 
 # with open(file_path, "w") as f:
 #     print("\n".join(map(str, (union, intersection, diff_a, diff_b, u_set.difference(a), u_set.difference(b)))), file=f)
+
+######################################################################################################
+# #Problem 52
+# #Sorting by Reversals
+
+import itertools
+
+p = [1,6,7,5,3,10,4,9,8,2]
+y = [4,1,8,6,3,2,9,5,10,7]
+
+p_perm1 = []
+y_perm1 = []
+
+for i in range(len(p)-1):
+    for j in range(i+1,len(p)+1):
+        if i != j and len(p[i:j]) > 1:
+            new = ((p[:i] + p[i:j][::-1] + p[j:]), (i+1,j))
+            p_perm1.append(new)
+
+for x in p_perm1:
+    if x == y:
+        print(x)
+
+for i in range(len(y)-1):
+    for j in range(i+1,len(y)+1):
+        if i != j and len(y[i:j]) > 1:
+            new = ((y[:i] + y[i:j][::-1] + y[j:]), (i+1,j))
+            y_perm1.append(new)
+
+for x in p_perm1:
+    for y in y_perm1:
+        if x[0] == y[0]:
+            print(x[1], y[1])
+
+#now we need to write code that finds which of x in p_perm1 and y in y_perm1 are closest to each other and then find the reversal distances of those, if it exists.
+#else, we do as many reversals as required
