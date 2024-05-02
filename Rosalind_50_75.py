@@ -48,8 +48,8 @@ import itertools
 p = [1,6,7,5,3,10,4,9,8,2]
 y = [4,1,8,6,3,2,9,5,10,7]
 
-p_perm1 = []
-y_perm1 = []
+p_perm1 = [(p, (0,0))]
+y_perm1 = [(y, (0,0))]
 
 for i in range(len(p)-1):
     for j in range(i+1,len(p)+1):
@@ -58,8 +58,8 @@ for i in range(len(p)-1):
             p_perm1.append(new)
 
 for x in p_perm1:
-    if x == y:
-        print(x)
+    if x[0] == y:
+        print(x[1])
 
 for i in range(len(y)-1):
     for j in range(i+1,len(y)+1):
@@ -74,3 +74,7 @@ for x in p_perm1:
 
 #now we need to write code that finds which of x in p_perm1 and y in y_perm1 are closest to each other and then find the reversal distances of those, if it exists.
 #else, we do as many reversals as required
+
+print(p_perm1)
+print("\n")
+print(y_perm1)
