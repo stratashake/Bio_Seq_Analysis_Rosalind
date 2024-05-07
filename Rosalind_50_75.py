@@ -203,3 +203,129 @@
 #     answers.append(answer)
 
 # print("".join(map(str, answers)))
+
+######################################################################################################
+# #Problem 54
+# #Introduction to Pattern Matching
+
+# import os
+
+# def insert(root, text, node_count):
+#     node = root
+#     for char in text:
+#         if char not in node:
+#             node_count[0] += 1
+#             node[char] = {'node_id': node_count[0]}
+#         node = node[char]
+
+# def print_trie(node, parent_id, result):
+#     for char, child in node.items():
+#         if char != 'node_id':  # Check to skip the node_id entry
+#             result.append((parent_id, child['node_id'], char))
+#             print_trie(child, child['node_id'], result)
+
+# def build_and_print_trie(strings):
+#     root = {'node_id': 1}  # Root node with node_id initialized to 1
+#     node_count = [1]  # Node counter starting from 1
+#     result = []
+
+#     for s in strings:
+#         insert(root, s, node_count)
+
+#     print_trie(root, root['node_id'], result)
+#     return result
+
+# with open("./Rosalind_files/rosalind_trie.txt") as f: 
+#     dna = [line.strip() for line in f.readlines()]
+# trie = build_and_print_trie(dna)
+
+# folder_path = './Rosalind_files/trie_output'
+# # Create the folder if it doesn't already exist
+# os.makedirs(folder_path, exist_ok=True)
+# # Define the full path for the new file within the new subfolder
+# file_path = os.path.join(folder_path, 'output_trie.txt')
+
+# with open(file_path, "w") as f:
+#     for edge in trie:
+#         print(f"{edge[0]} {edge[1]} {edge[2]}", file=f)
+
+######################################################################################################
+# #Problem 55
+# #Comparing Spectra with the Spectral Convolution
+
+# def spectral_convolution(S1, S2):
+#     from collections import defaultdict
+    
+#     # Dictionary to count multiplicities of each difference
+#     differences = defaultdict(int)
+    
+#     # Compute all differences and their multiplicities
+#     for s1 in S1:
+#         for s2 in S2:
+#             diff = s1 - s2
+#             diff = round(diff, 5)
+#             differences[diff] += 1
+
+#     # Determine the maximal multiplicity and the corresponding difference
+#     max_multiplicity = max(differences.values())
+#     shift_value = max(differences, key=lambda r: differences[r])  # Get the difference with the max multiplicity
+    
+#     return max_multiplicity, abs(shift_value)
+
+# with open("./Rosalind_files/rosalind_conv.txt", 'r') as file:
+#     lines = file.readlines()
+#     S1 = [float(num) for num in lines[0].strip().split()]
+#     S2 = [float(num) for num in lines[1].strip().split()] 
+
+# max_multiplicity, shift_value = spectral_convolution(S1, S2)
+# print(max_multiplicity)
+# print(shift_value)
+
+
+# ######################################################################################################
+# """The same, but with counter"""
+
+# from collections import Counter
+
+# # Calculate all possible differences
+# differences = [round(s1 - s2, 5) for s1 in S1 for s2 in S2]
+
+# # Use Counter to count the frequency of each difference
+# difference_counts = Counter(differences)
+
+# # Find the most common difference and its multiplicity
+# most_common_difference, max_multiplicity = difference_counts.most_common(1)[0]
+
+# print(max_multiplicity)
+# print(most_common_difference)
+
+######################################################################################################
+# #Problem 56
+# #Creating a Character Table
+
+# from Bio import Phylo
+# from io import StringIO
+
+# with open("./Rosalind_files/rosalind_nwck.txt") as f: 
+#     trees = f.read().splitlines() 
+
+# phylo = [] #the newick tree
+# animals = [] #the two nodes of interest
+# ans_list = []
+
+# for x in range(0,len(trees),3):
+#     phylo.append(trees[x])
+#     animals.append(trees[x+1].split(" "))
+
+
+# def newick_distance_finder(phy, ani):
+#     tree = Phylo.read(StringIO(phy), "newick")
+#     clades = tree.find_clades()
+#     for clade in clades: #biopython was reading each branch/clade with a length of 0, originally. 
+#         clade.branch_length = 1
+#     ans_list.append(tree.distance(ani[0], ani[1]))
+
+# for x,y in zip(phylo, animals):
+#     newick_distance_finder(x, y)
+
+# print(' '.join(map(str, ans_list)))
