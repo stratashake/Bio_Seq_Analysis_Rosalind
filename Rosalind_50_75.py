@@ -306,26 +306,113 @@
 # from Bio import Phylo
 # from io import StringIO
 
-# with open("./Rosalind_files/rosalind_nwck.txt") as f: 
-#     trees = f.read().splitlines() 
+# with open("./Rosalind_files/rosalind_ctbl.txt") as f: 
+#     newick_tree = f.read()
 
-# phylo = [] #the newick tree
-# animals = [] #the two nodes of interest
-# ans_list = []
+# # Read the Newick formatted tree using Bio.Phylo
+# tree = Phylo.read(StringIO(newick_tree), "newick")
 
-# for x in range(0,len(trees),3):
-#     phylo.append(trees[x])
-#     animals.append(trees[x+1].split(" "))
+# def find_splits(tree):
+#     splits = set()  # Using a set to avoid duplicates
+#     taxa = sorted(clade.name for clade in tree.find_clades() if clade.name)
 
+#     def collect_taxa(clade):
+#         return set(node.name for node in clade.find_clades() if node.name)
 
-# def newick_distance_finder(phy, ani):
-#     tree = Phylo.read(StringIO(phy), "newick")
-#     clades = tree.find_clades()
-#     for clade in clades: #biopython was reading each branch/clade with a length of 0, originally. 
-#         clade.branch_length = 1
-#     ans_list.append(tree.distance(ani[0], ani[1]))
+#     for clade in tree.get_nonterminals():  # Only non-terminal nodes define splits
+#         taxa_one_side = collect_taxa(clade)
+#         taxa_other_side = set(taxa) - taxa_one_side
 
-# for x,y in zip(phylo, animals):
-#     newick_distance_finder(x, y)
+#         # Make sure both sides have at least one taxon
+#         if taxa_one_side and taxa_other_side:
+#             # Choose the smaller side for '1's to match the example output
+#             if len(taxa_one_side) < len(taxa_other_side):
+#                 smaller_side = taxa_one_side
+#             else:
+#                 smaller_side = taxa_other_side
 
-# print(' '.join(map(str, ans_list)))
+#             # Create binary string for this split
+#             binary_split = ''.join(['1' if taxon in smaller_side else '0' for taxon in taxa])
+#             splits.add(binary_split)  # Add to set to keep unique
+
+#     return splits
+
+# # Compute and print all unique splits
+# splits = find_splits(tree)
+# for split in sorted(splits):
+#     print(split)
+
+######################################################################################################
+# #Problem 57
+# #Constructing a De Bruijn Graph
+
+"""Skip for now"""
+
+######################################################################################################
+# #Problem 58
+# #Reconstructing Edit Distance
+
+from Bio import SeqIO
+# s, t = [str(rec.seq).strip() for rec in SeqIO.parse("./Rosalind_files/rosalind_edta.txt", "fasta")]
+s= "PRETTY"
+t= "PRTTEIN"
+
+def scs_length(X, Y):
+    m, n = len(X), len(Y)
+    L = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Initialize base cases
+    for i in range(m+1):
+        L[i][0] = i
+    for j in range(n+1):
+        L[0][j] = j
+
+    # Fill the DP table
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if X[i-1] == Y[j-1]:
+                L[i][j] = L[i-1][j-1]
+            else:
+                L[i][j] = 1 + min(L[i - 1][j],    # Insertion
+                                   L[i][j - 1],    # Deletion
+                                   L[i - 1][j - 1]) # Substitution
+                
+                
+    return L, L[m][n]
+
+def reconstruct_alignment(L, X, Y):
+    s_edit, t_edit = "", ""
+    m, n = len(X), len(Y)
+
+    while m > 0 and n > 0: #character match
+        if X[m - 1] == Y[n - 1]:
+            s_edit = X[m - 1] + s_edit
+            t_edit = Y[n - 1] + t_edit
+            m -= 1
+            n -= 1
+            print("one", s_edit)
+        elif L[m][n] == L[m - 1][n] + 1: #Insertion in Y (Deletion in X)
+            s_edit = X[m - 1] + s_edit
+            t_edit = "-" + t_edit
+            m -= 1
+            print("two", s_edit)
+        elif L[m][n] == L[m][n - 1] + 1: #Insertion in X (Deletion in Y)
+            s_edit = "-" + s_edit
+            t_edit = Y[n - 1] + t_edit
+            n -= 1
+            print("three", s_edit)
+        else: #Substitution
+            s_edit = X[m - 1] + s_edit
+            t_edit = Y[n - 1] + t_edit
+            m -= 1
+            n -= 1
+            print("four", s_edit)
+
+    return s_edit, t_edit
+
+table, edit_distance_value = scs_length(s, t)
+edited_s, edited_t = reconstruct_alignment(table, s, t)
+
+print(edit_distance_value)
+print(edited_s)
+print(edited_t)
