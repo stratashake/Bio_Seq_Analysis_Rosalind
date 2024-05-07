@@ -353,9 +353,7 @@
 # #Reconstructing Edit Distance
 
 from Bio import SeqIO
-# s, t = [str(rec.seq).strip() for rec in SeqIO.parse("./Rosalind_files/rosalind_edta.txt", "fasta")]
-s= "PRETTY"
-t= "PRTTEIN"
+s, t = [str(rec.seq).strip() for rec in SeqIO.parse("./Rosalind_files/rosalind_edta.txt", "fasta")]
 
 def scs_length(X, Y):
     m, n = len(X), len(Y)
@@ -390,23 +388,22 @@ def reconstruct_alignment(L, X, Y):
             t_edit = Y[n - 1] + t_edit
             m -= 1
             n -= 1
-            print("one", s_edit)
+
         elif L[m][n] == L[m - 1][n] + 1: #Insertion in Y (Deletion in X)
             s_edit = X[m - 1] + s_edit
             t_edit = "-" + t_edit
             m -= 1
-            print("two", s_edit)
+
         elif L[m][n] == L[m][n - 1] + 1: #Insertion in X (Deletion in Y)
             s_edit = "-" + s_edit
             t_edit = Y[n - 1] + t_edit
             n -= 1
-            print("three", s_edit)
+
         else: #Substitution
             s_edit = X[m - 1] + s_edit
             t_edit = Y[n - 1] + t_edit
             m -= 1
             n -= 1
-            print("four", s_edit)
 
     return s_edit, t_edit
 
