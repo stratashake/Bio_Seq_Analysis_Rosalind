@@ -420,7 +420,7 @@
 with open("./Rosalind_files/rosalind_full.txt") as f: 
     L = [float(line.strip()) for i, line in enumerate(f) if i > 0]
 
-print(L)
+print(len(L))
 
 amino_acid_masses = {
     'A': 71.03711,
@@ -467,7 +467,7 @@ remove_numbers = set()
 for i in range(1, len(ions)):
     diff = round(ions[i] - ions[i-1], 5)
     amino_acid = find_nearest_mass(diff, amino_acid_masses)
-    print(f"Between {ions[i-1]} and {ions[i]}, diff: {diff}, closest amino acid: {amino_acid}")
+    # print(f"Between {ions[i-1]} and {ions[i]}, diff: {diff}, closest amino acid: {amino_acid}")
     full_info.append([ions[i-1], ions[i], diff, amino_acid])
 # print(full_info)
 
@@ -477,23 +477,24 @@ for x in range(len(full_info)):
         remove_numbers.add(full_info[x][1])
 
 rm_list = sorted(list(remove_numbers))
-print(rm_list)
+# print(rm_list)
 
 ions_edit = [y for y in ions if y not in rm_list]
-print(ions_edit)
+# print(ions_edit)
 
-final_set = set()
+final_set = []
 for i in range(1, len(ions_edit)):
     diff = round(ions_edit[i] - ions_edit[i-1], 5)
     amino_acid = find_nearest_mass(diff, amino_acid_masses)
-    print(f"Between {ions_edit[i-1]} and {ions_edit[i]}, diff: {diff}, closest amino acid: {amino_acid}")
-    final_set.add(diff)
+    # print(f"Between {ions_edit[i-1]} and {ions_edit[i]}, diff: {diff}, closest amino acid: {amino_acid}")
+    final_set.append(diff)
     # print(final_set)
     # full_info.append([ions_edit[i-1], ions_edit[i], diff, amino_acid])
-print(final_set)
+# print(final_set)
+print(len(final_set))
 
 
-answer =[]
+answer = []
 
 for x in full_info:
     if x[3] != None:
@@ -539,3 +540,4 @@ def find_closest_amino_acids(sums, amino_acid_masses):
     # find_closest_amino_acids(x, amino_acid_masses)
 
 print("".join(map(str, answer)))
+print(len(answer))
