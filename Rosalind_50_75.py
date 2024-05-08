@@ -452,58 +452,58 @@ amino_acid_masses = {
 #     1377.8200091
 # ]
 
-parent_mass = L[0]
-ions = (L[1:])
+# parent_mass = L[0]
+# ions = (L[1:])
+
+ions = L
 
 def find_nearest_mass(difference, mass_table):
     closest_mass = min(mass_table, key=lambda m: abs(mass_table[m] - difference))
     closest_difference = abs(mass_table[closest_mass] - difference)
-    if closest_difference < .01:
+    if closest_difference < .01: #only return if the mass closely matches the amino acid weight in the dictionary
         return closest_mass
     
-full_info = []
-remove_numbers = set()
+full_info_matched = []
+matched_numbers = set()
 
 for i in range(1, len(ions)):
     diff = round(ions[i] - ions[i-1], 5)
     amino_acid = find_nearest_mass(diff, amino_acid_masses)
     # print(f"Between {ions[i-1]} and {ions[i]}, diff: {diff}, closest amino acid: {amino_acid}")
-    full_info.append([ions[i-1], ions[i], diff, amino_acid])
-# print(full_info)
+    full_info_matched.append([ions[i-1], ions[i], diff, amino_acid])
+# print(full_info_matched)
 
-for x in range(len(full_info)):
-    if full_info[x][3] != None:
-        remove_numbers.add(full_info[x][0])
-        remove_numbers.add(full_info[x][1])
+for x in range(len(full_info_matched)):
+    if full_info_matched[x][3] != None:
+        matched_numbers.add(full_info_matched[x][0])
+        matched_numbers.add(full_info_matched[x][1]) #ensuring we have every mass that corresponds to an identified ion
 
-rm_list = sorted(list(remove_numbers))
-# print(rm_list)
-
-ions_edit = [y for y in ions if y not in rm_list]
-# print(ions_edit)
-
-final_set = []
-for i in range(1, len(ions_edit)):
-    diff = round(ions_edit[i] - ions_edit[i-1], 5)
-    amino_acid = find_nearest_mass(diff, amino_acid_masses)
-    # print(f"Between {ions_edit[i-1]} and {ions_edit[i]}, diff: {diff}, closest amino acid: {amino_acid}")
-    final_set.append(diff)
-    # print(final_set)
-    # full_info.append([ions_edit[i-1], ions_edit[i], diff, amino_acid])
-# print(final_set)
-print(len(final_set))
-
-
-answer = []
-
-for x in full_info:
+answer = [] #our final list of identified answers
+for x in full_info_matched:
     if x[3] != None:
         answer.append(x[3])
+
+sorted_matched_numbers = sorted(list(matched_numbers)) 
+# print(sorted_matched_numbers)
+
+ions_unmatched = [y for y in ions if y not in sorted_matched_numbers] #gives us the unmatched masses for the remaining unknown ions
+# print(ions_unmatched)
+
+ions_unmatched_weights = []
+for i in range(1, len(ions_unmatched)):
+    diff = round(ions_unmatched[i] - ions_unmatched[i-1], 5)
+    # amino_acid = find_nearest_mass(diff, amino_acid_masses)
+    # print(f"Between {ions_unmatched[i-1]} and {ions_unmatched[i]}, diff: {diff}, closest amino acid: {amino_acid}")
+    ions_unmatched_weights.append(diff)
+    # print(ions_unmatched_weights)
+    # full_info_matched.append([ions_unmatched[i-1], ions_unmatched[i], diff, amino_acid])
+# print(ions_unmatched_weights)
+print(len(ions_unmatched_weights))
 
 import itertools
 
 sums = set()
-for pair in itertools.combinations(final_set, 2):
+for pair in itertools.combinations(ions_unmatched_weights, 2):
     sums.add(round(sum(pair), 5))
 
 ############################# need to change the iterations to be more selective. 
