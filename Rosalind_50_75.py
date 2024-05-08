@@ -352,64 +352,190 @@
 # #Problem 58
 # #Reconstructing Edit Distance
 
-from Bio import SeqIO
-s, t = [str(rec.seq).strip() for rec in SeqIO.parse("./Rosalind_files/rosalind_edta.txt", "fasta")]
+# from Bio import SeqIO
+# s, t = [str(rec.seq).strip() for rec in SeqIO.parse("./Rosalind_files/rosalind_edta.txt", "fasta")]
 
-def scs_length(X, Y):
-    m, n = len(X), len(Y)
-    L = [[0] * (n + 1) for _ in range(m + 1)]
+# def scs_length(X, Y):
+#     m, n = len(X), len(Y)
+#     L = [[0] * (n + 1) for _ in range(m + 1)]
 
-    # Initialize base cases
-    for i in range(m+1):
-        L[i][0] = i
-    for j in range(n+1):
-        L[0][j] = j
+#     # Initialize base cases
+#     for i in range(m+1):
+#         L[i][0] = i
+#     for j in range(n+1):
+#         L[0][j] = j
 
-    # Fill the DP table
-    for i in range(1, m+1):
-        for j in range(1, n+1):
-            if X[i-1] == Y[j-1]:
-                L[i][j] = L[i-1][j-1]
-            else:
-                L[i][j] = 1 + min(L[i - 1][j],    # Insertion
-                                   L[i][j - 1],    # Deletion
-                                   L[i - 1][j - 1]) # Substitution
+#     # Fill the DP table
+#     for i in range(1, m+1):
+#         for j in range(1, n+1):
+#             if X[i-1] == Y[j-1]:
+#                 L[i][j] = L[i-1][j-1]
+#             else:
+#                 L[i][j] = 1 + min(L[i - 1][j],    # Insertion
+#                                    L[i][j - 1],    # Deletion
+#                                    L[i - 1][j - 1]) # Substitution
                 
-                
-    return L, L[m][n]
+#     return L, L[m][n]
 
-def reconstruct_alignment(L, X, Y):
-    s_edit, t_edit = "", ""
-    m, n = len(X), len(Y)
+# def reconstruct_alignment(L, X, Y):
+#     s_edit, t_edit = "", ""
+#     m, n = len(X), len(Y)
 
-    while m > 0 and n > 0: #character match
-        if X[m - 1] == Y[n - 1]:
-            s_edit = X[m - 1] + s_edit
-            t_edit = Y[n - 1] + t_edit
-            m -= 1
-            n -= 1
+#     while m > 0 and n > 0: #character match
+#         if X[m - 1] == Y[n - 1]:
+#             s_edit = X[m - 1] + s_edit
+#             t_edit = Y[n - 1] + t_edit
+#             m -= 1
+#             n -= 1
 
-        elif L[m][n] == L[m - 1][n] + 1: #Insertion in Y (Deletion in X)
-            s_edit = X[m - 1] + s_edit
-            t_edit = "-" + t_edit
-            m -= 1
+#         elif L[m][n] == L[m - 1][n] + 1: #Insertion in Y (Deletion in X)
+#             s_edit = X[m - 1] + s_edit
+#             t_edit = "-" + t_edit
+#             m -= 1
 
-        elif L[m][n] == L[m][n - 1] + 1: #Insertion in X (Deletion in Y)
-            s_edit = "-" + s_edit
-            t_edit = Y[n - 1] + t_edit
-            n -= 1
+#         elif L[m][n] == L[m][n - 1] + 1: #Insertion in X (Deletion in Y)
+#             s_edit = "-" + s_edit
+#             t_edit = Y[n - 1] + t_edit
+#             n -= 1
 
-        else: #Substitution
-            s_edit = X[m - 1] + s_edit
-            t_edit = Y[n - 1] + t_edit
-            m -= 1
-            n -= 1
+#         else: #Substitution
+#             s_edit = X[m - 1] + s_edit
+#             t_edit = Y[n - 1] + t_edit
+#             m -= 1
+#             n -= 1
 
-    return s_edit, t_edit
+#     return s_edit, t_edit
 
-table, edit_distance_value = scs_length(s, t)
-edited_s, edited_t = reconstruct_alignment(table, s, t)
+# table, edit_distance_value = scs_length(s, t)
+# edited_s, edited_t = reconstruct_alignment(table, s, t)
 
-print(edit_distance_value)
-print(edited_s)
-print(edited_t)
+# print(edit_distance_value)
+# print(edited_s)
+# print(edited_t)
+
+######################################################################################################
+# #Problem 59
+# #Inferring Peptide from Full Spectrum
+
+with open("./Rosalind_files/rosalind_full.txt") as f: 
+    L = [float(line.strip()) for i, line in enumerate(f) if i > 0]
+
+print(L)
+
+amino_acid_masses = {
+    'A': 71.03711,
+    'C': 103.00919,
+    'D': 115.02694,
+    'E': 129.04259,
+    'F': 147.06841,
+    'G': 57.02146,
+    'H': 137.05891,
+    'I': 113.08406,
+    'K': 128.09496,
+    'L': 113.08406,
+    'M': 131.04049,
+    'N': 114.04293,
+    'P': 97.05276,
+    'Q': 128.05858,
+    'R': 156.10111,
+    'S': 87.03203,
+    'T': 101.04768,
+    'V': 99.06841,
+    'W': 186.07931,
+    'Y': 163.06333 
+}
+
+# L = [
+#     1988.21104821, 610.391039105, 738.485999105, 766.492149105,
+#     863.544909105, 867.528589105, 992.587499105, 995.623549105,
+#     1120.6824591, 1124.6661391, 1221.7188991, 1249.7250491,
+#     1377.8200091
+# ]
+
+parent_mass = L[0]
+ions = (L[1:])
+
+def find_nearest_mass(difference, mass_table):
+    closest_mass = min(mass_table, key=lambda m: abs(mass_table[m] - difference))
+    closest_difference = abs(mass_table[closest_mass] - difference)
+    if closest_difference < .01:
+        return closest_mass
+    
+full_info = []
+remove_numbers = set()
+
+for i in range(1, len(ions)):
+    diff = round(ions[i] - ions[i-1], 5)
+    amino_acid = find_nearest_mass(diff, amino_acid_masses)
+    print(f"Between {ions[i-1]} and {ions[i]}, diff: {diff}, closest amino acid: {amino_acid}")
+    full_info.append([ions[i-1], ions[i], diff, amino_acid])
+# print(full_info)
+
+for x in range(len(full_info)):
+    if full_info[x][3] != None:
+        remove_numbers.add(full_info[x][0])
+        remove_numbers.add(full_info[x][1])
+
+rm_list = sorted(list(remove_numbers))
+print(rm_list)
+
+ions_edit = [y for y in ions if y not in rm_list]
+print(ions_edit)
+
+final_set = set()
+for i in range(1, len(ions_edit)):
+    diff = round(ions_edit[i] - ions_edit[i-1], 5)
+    amino_acid = find_nearest_mass(diff, amino_acid_masses)
+    print(f"Between {ions_edit[i-1]} and {ions_edit[i]}, diff: {diff}, closest amino acid: {amino_acid}")
+    final_set.add(diff)
+    # print(final_set)
+    # full_info.append([ions_edit[i-1], ions_edit[i], diff, amino_acid])
+print(final_set)
+
+
+answer =[]
+
+for x in full_info:
+    if x[3] != None:
+        answer.append(x[3])
+
+import itertools
+
+sums = set()
+for pair in itertools.combinations(final_set, 2):
+    sums.add(round(sum(pair), 5))
+
+############################# need to change the iterations to be more selective. 
+
+sums = list(sums)
+
+def find_closest_amino_acids(sums, amino_acid_masses):
+    # Create a dictionary to store the results
+    closest_amino_acids = {}
+
+
+    min_difference = float('inf')  # Set to infinitely large value at start
+    closest_amino_acid = None
+
+    # Check each amino acid and its mass
+    for amino_acid, mass in amino_acid_masses.items():
+        # Calculate the absolute difference between the target mass and the current amino acid's mass
+        difference = abs(mass - sums)
+
+        # If this difference is less than the currently found minimum, update our tracking variables
+        if difference < min_difference:
+            min_difference = difference
+            closest_amino_acid = amino_acid
+
+    # After finding the closest amino acid for this target mass, store it in the dictionary
+    closest_amino_acids[sums] = closest_amino_acid
+
+    # Return the dictionary containing the closest amino acid for each target mass
+    for x in closest_amino_acids.values():
+        answer.append(x)
+
+# for x in sums:
+#     print(x)
+    # find_closest_amino_acids(x, amino_acid_masses)
+
+print("".join(map(str, answer)))
