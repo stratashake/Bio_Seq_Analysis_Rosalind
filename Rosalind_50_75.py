@@ -420,116 +420,7 @@
 """This is not my code, but I understand how it works.
 It is very clever in a few different ways."""
 
-MASS_TABLE = {
-    'A': 71.03711,
-    'C': 103.00919,
-    'D': 115.02694,
-    'E': 129.04259,
-    'F': 147.06841,
-    'G': 57.02146,
-    'H': 137.05891,
-    'I': 113.08406,
-    'K': 128.09496,
-    'L': 113.08406,
-    'M': 131.04049,
-    'N': 114.04293,
-    'P': 97.05276,
-    'Q': 128.05858,
-    'R': 156.10111,
-    'S': 87.03203,
-    'T': 101.04768,
-    'V': 99.06841,
-    'W': 186.07931,
-    'Y': 163.06333
-}
-
-def find_weight_match(current_w, w_list):
-    for weight in w_list:
-        for aa, wt in MASS_TABLE.items():
-            if abs(wt - (weight - current_w)) < 0.01: #somewhat inefficient
-                return aa
-    return -1
-
-
-with open("./Rosalind_files/rosalind_full.txt", 'r') as file:
-    input_lines = file.read().splitlines()
-
-weights = [float(x) for x in input_lines]
-n = (len(weights) - 3) // 2  # Ensure integer division
-
-protein = ""
-current = weights[1]
-remaining_weights = weights[2:]
-
-while len(protein) < n:
-    aa = find_weight_match(current, remaining_weights)
-    if aa == -1:
-        break
-    else:
-        protein += aa
-        current += MASS_TABLE[aa]
-        remaining_weights = list(filter(lambda w: w - current > 0, remaining_weights)) # filter instead of sort
-        print(f"Added {aa}, new current mass: {current}, remaining weights count: {len(remaining_weights)}")
-
-print(protein)
-
-
-
-# def find_nearest_mass(difference, mass_table):
-#     closest_mass = min(mass_table, key=lambda m: abs(mass_table[m] - difference))
-#     closest_difference = abs(mass_table[closest_mass] - difference)
-#     if closest_difference < .01: #only return if the mass closely matches the amino acid weight in the dictionary
-#         return closest_mass
-    
-# full_info_matched = []
-# full_info_not_matched = []
-# answer = [] #our final list of identified answers
-
-# for i in range(1, len(ions)):
-#     diff = round(ions[i] - ions[i-1], 7)
-#     amino_acid = find_nearest_mass(diff, amino_acid_masses)
-#     print(f"Between {ions[i-1]} and {ions[i]}, diff: {diff}, closest amino acid: {amino_acid}, {i}")
-#     info = [ions[i-1], ions[i], diff, amino_acid]
-#     full_info_matched.append(info)
-
-#     if amino_acid != None:
-#         answer.append(amino_acid)
-
-
-
-# for x in range(1, len(full_info_matched)):
-#     added = round(full_info_matched[x][2] + full_info_matched[x-1][2], 7)
-#     amino_acid = find_nearest_mass(added, amino_acid_masses)
-#     if amino_acid != None:
-#         full_info_not_matched.append(amino_acid)
-
-# print(len(full_info_not_matched))
-# print(len(answer))
-
-
-# for x in full_info_matched:
-#     answer.append(x[3]) # gives us part of the protein
-
-# print(answer)
-
-
-
-
-
-
-
-
-
-
-
-
-
-# with open("./Rosalind_files/rosalind_full.txt") as f: 
-#     L = [float(line.strip()) for i, line in enumerate(f) if i > 0]
-
-# print(len(L))
-
-# amino_acid_masses = {
+# MASS_TABLE = {
 #     'A': 71.03711,
 #     'C': 103.00919,
 #     'D': 115.02694,
@@ -549,138 +440,58 @@ print(protein)
 #     'T': 101.04768,
 #     'V': 99.06841,
 #     'W': 186.07931,
-#     'Y': 163.06333 
+#     'Y': 163.06333
 # }
 
-# # L = [
-# #     1988.21104821, 610.391039105, 738.485999105, 766.492149105,
-# #     863.544909105, 867.528589105, 992.587499105, 995.623549105,
-# #     1120.6824591, 1124.6661391, 1221.7188991, 1249.7250491,
-# #     1377.8200091
-# # ]
-
-# # parent_mass = L[0]
-# # ions = (L[1:])
-
-# ions = L
-
-# def find_nearest_mass(difference, mass_table):
-#     closest_mass = min(mass_table, key=lambda m: abs(mass_table[m] - difference))
-#     closest_difference = abs(mass_table[closest_mass] - difference)
-#     if closest_difference < .01: #only return if the mass closely matches the amino acid weight in the dictionary
-#         return closest_mass
-    
-# full_info_matched = []
-# matched_numbers = set()
-
-# for i in range(1, len(ions)):
-#     diff = round(ions[i] - ions[i-1], 7)
-#     amino_acid = find_nearest_mass(diff, amino_acid_masses)
-#     print(f"Between {ions[i-1]} and {ions[i]}, diff: {diff}, closest amino acid: {amino_acid}, {i}")
-#     full_info_matched.append([ions[i-1], ions[i], diff, amino_acid])
-# # print(full_info_matched)
-
-# answer = [] #our final list of identified answers
-# for x in range(len(full_info_matched)):
-#     if full_info_matched[x][3] != None:
-#         matched_numbers.add(full_info_matched[x][0])
-#         matched_numbers.add(full_info_matched[x][1]) #ensuring we have every mass that corresponds to an identified ion
-#         answer.append(full_info_matched[x][3]) # gives us part of the protein
-
-# sorted_matched_numbers = sorted(list(matched_numbers)) 
-# # print(sorted_matched_numbers)
-
-# ions_unmatched = [y for y in ions if y not in sorted_matched_numbers] #gives us the unmatched masses for the remaining unknown ions
-# # print(ions_unmatched)
-
-# ions_unmatched_weights = []
-# for i in range(1, len(ions_unmatched)):
-#     diff = round(ions_unmatched[i] - ions_unmatched[i-1], 7)
-#     # amino_acid = find_nearest_mass(diff, amino_acid_masses)
-#     # print(f"Between {ions_unmatched[i-1]} and {ions_unmatched[i]}, diff: {diff}, closest amino acid: {amino_acid}")
-#     ions_unmatched_weights.append(diff)
-#     # print(ions_unmatched_weights)
-#     # full_info_matched.append([ions_unmatched[i-1], ions_unmatched[i], diff, amino_acid])
-# # print(ions_unmatched_weights)
-# print(len(ions_unmatched_weights))
-# # print(sorted(ions_unmatched_weights))
-
-# """We have our collection of masses that correspond either by themselves or in combination to some 
-# proteins. We have to remove duplicates and those that have no duplicates now"""
-# from collections import Counter
-# counts = Counter(ions_unmatched_weights)
-# filtered_ions_unmatched_weights = [item for item in ions_unmatched_weights if counts[item] > 1] #remove item that has no duplicate
-# print(len(filtered_ions_unmatched_weights))
-
-# counts_two = Counter(filtered_ions_unmatched_weights)
-# filtered_ions_unmatched_weights_hold = [item for item in filtered_ions_unmatched_weights if counts[item] > 3] #find the extras
-# filtered_ions_unmatched_weights_hold = set(filtered_ions_unmatched_weights_hold)
-# print(filtered_ions_unmatched_weights_hold)
-# filtered_ions_unmatched_weights_hold = list(filtered_ions_unmatched_weights_hold)
-
-# filtered_ions_unmatched_weights = set(filtered_ions_unmatched_weights)
-# filtered_ions_unmatched_weights = list(filtered_ions_unmatched_weights)
-
-# filtered_ions_unmatched_weights = filtered_ions_unmatched_weights + filtered_ions_unmatched_weights_hold
-# filtered_ions_unmatched_weights = sorted(filtered_ions_unmatched_weights)
-# print(len(filtered_ions_unmatched_weights))
-
-# for i in filtered_ions_unmatched_weights[:]:
-#     amino_acid = find_nearest_mass(i, amino_acid_masses)
-#     # print(f"ion weight: {i}, closest amino acid: {amino_acid}")
-#     if amino_acid is not None:
-#         answer.append(amino_acid)
-#         filtered_ions_unmatched_weights.remove(i)
-
-# print(len(filtered_ions_unmatched_weights))
-# print(filtered_ions_unmatched_weights)
-        
-# for i in range(1, len(filtered_ions_unmatched_weights)):
-#     added = round(filtered_ions_unmatched_weights[i] + filtered_ions_unmatched_weights[i-1], 7)
-#     amino_acid = find_nearest_mass(added, amino_acid_masses)
+# def find_weight_match(current_w, w_list):
+#     for weight in w_list:
+#         for aa, wt in MASS_TABLE.items():
+#             if abs(wt - (weight - current_w)) < 0.01: #somewhat inefficient
+#                 return aa
+#     return -1
 
 
+# with open("./Rosalind_files/rosalind_full.txt", 'r') as file:
+#     input_lines = file.read().splitlines()
 
-# # import itertools
+# weights = [float(x) for x in input_lines]
+# n = (len(weights) - 3) // 2  # Ensure integer division
 
-# # added_unknown_weights = set()
-# # for pair in itertools.combinations(ions_unmatched_weights, 2):
-# #     added_unknown_weights.add(round(sum(pair), 7))
+# protein = ""
+# current = weights[1]
+# remaining_weights = weights[2:]
 
-# # print(len(added_unknown_weights))
+# while len(protein) < n:
+#     aa = find_weight_match(current, remaining_weights)
+#     if aa == -1:
+#         break
+#     else:
+#         protein += aa
+#         current += MASS_TABLE[aa]
+#         remaining_weights = list(filter(lambda w: w - current > 0, remaining_weights)) # filter instead of sort
+#         print(f"Added {aa}, new current mass: {current}, remaining weights count: {len(remaining_weights)}")
 
-# ############################# need to change the iterations to be more selective. 
+# print(protein)
 
-# # added_unknown_weights = list(added_unknown_weights)
+######################################################################################################
+# #Problem 60
+# #Independent Segregation of Chromosomes
 
-# # def find_closest_amino_acids(added_unknown_weights, amino_acid_masses):
-# #     # Create a dictionary to store the results
-# #     closest_amino_acids = {}
+import math
+from scipy.stats import binom
 
+with open("./Rosalind_files/rosalind_indc.txt") as f:
+    n = int(f.read())
 
-# #     min_difference = float('inf')  # Set to infinitely large value at start
-# #     closest_amino_acid = None
+def binomial_commmon_log(n):
+    total_chromosomes = 2*n
+    probabilities = []
 
-# #     # Check each amino acid and its mass
-# #     for amino_acid, mass in amino_acid_masses.items():
-# #         # Calculate the absolute difference between the target mass and the current amino acid's mass
-# #         difference = abs(mass - added_unknown_weights)
+    for k in range(1, total_chromosomes+1):
+        cumulative_prob = binom.sf(k-1, total_chromosomes, 0.5)
+        com_log = math.log10(cumulative_prob)
+        probabilities.append(round(com_log, 3))
+    return probabilities
 
-# #         # If this difference is less than the currently found minimum, update our tracking variables
-# #         if difference < min_difference:
-# #             min_difference = difference
-# #             closest_amino_acid = amino_acid
-
-# #     # After finding the closest amino acid for this target mass, store it in the dictionary
-# #     closest_amino_acids[added_unknown_weights] = closest_amino_acid
-
-# #     # Return the dictionary containing the closest amino acid for each target mass
-# #     for x in closest_amino_acids.values():
-# #         answer.append(x)
-
-# # for x in added_unknown_weights:
-# #     print(x)
-#     # find_closest_amino_acids(x, amino_acid_masses)
-
-# print("".join(map(str, answer)))
-# print(len(answer))
+result = binomial_commmon_log(n)
+print(' '.join(map(str, result)))
