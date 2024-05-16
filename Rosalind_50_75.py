@@ -477,21 +477,80 @@ It is very clever in a few different ways."""
 # #Problem 60
 # #Independent Segregation of Chromosomes
 
-import math
-from scipy.stats import binom
+# import math
+# from scipy.stats import binom
 
-with open("./Rosalind_files/rosalind_indc.txt") as f:
-    n = int(f.read())
+# with open("./Rosalind_files/rosalind_indc.txt") as f:
+#     n = int(f.read())
 
-def binomial_commmon_log(n):
-    total_chromosomes = 2*n
-    probabilities = []
+# def binomial_commmon_log(n):
+#     total_chromosomes = 2*n
+#     probabilities = []
 
-    for k in range(1, total_chromosomes+1):
-        cumulative_prob = binom.sf(k-1, total_chromosomes, 0.5)
-        com_log = math.log10(cumulative_prob)
-        probabilities.append(round(com_log, 3))
-    return probabilities
+#     for k in range(1, total_chromosomes+1):
+#         cumulative_prob = binom.sf(k-1, total_chromosomes, 0.5)
+#         com_log = math.log10(cumulative_prob)
+#         probabilities.append(round(com_log, 3))
+#     return probabilities
 
-result = binomial_commmon_log(n)
-print(' '.join(map(str, result)))
+# result = binomial_commmon_log(n)
+# print(' '.join(map(str, result)))
+
+######################################################################################################
+# #Problem 61
+# #Finding Disjoint Motifs in a Gene
+
+# with open("./Rosalind_files/rosalind_itwv.txt", 'r') as file:
+#     lines = file.readlines()
+#     s = lines[0]
+#     strings = [line.rstrip() for line in lines[1:]]
+
+# def interleave(s, t, res, i, j, lis, seen):
+#     # Base case: when both indices reach the end of their respective strings
+#     if i == len(s) and j == len(t):
+#         if res not in seen:  # Check if the result is unique
+#             lis.append(res)
+#             seen.add(res)  # Mark this interleaving as seen
+#         return
+#     # Recursive call if more characters can be taken from s
+#     if i < len(s):
+#         interleave(s, t, res + s[i], i + 1, j, lis, seen)
+#     # Recursive call if more characters can be taken from t
+#     if j < len(t):
+#         interleave(s, t, res + t[j], i, j + 1, lis, seen)
+
+# def generate_all_interleavings(strings):
+#     interleaves = []  # List to hold all the lists of interleavings for each pair
+#     # Generate interleavings for each possible combination
+#     for s1 in strings:
+#         for s2 in strings:
+#             current_interleaves = []  # List for interleavings of s1 with s2
+#             seen = set()  # Set to track unique interleavings
+#             interleave(s1, s2, "", 0, 0, current_interleaves, seen)
+#             interleaves.append(current_interleaves)
+#     return interleaves
+
+# interleaves = generate_all_interleavings(strings)
+
+# def find_if_in_string(section, s):
+#     if any(subsec in s for subsec in section):
+#         return 1
+#     else:
+#         return 0
+
+# n = len(strings)
+# results = [[0] * n for _ in range(n)]
+
+# count = 0
+# for j in range(n):
+#     for k in range(n):
+#         results[j][k] = find_if_in_string(interleaves[count], s)
+#         count += 1
+        
+# for row in results:
+#     print(' '.join(map(str, row)))
+
+######################################################################################################
+# #Problem 62
+# #Finding the Longest Multiple Repeat
+
