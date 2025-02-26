@@ -343,12 +343,6 @@
 #     print(split)
 
 ######################################################################################################
-# #Problem 57
-# #Constructing a De Bruijn Graph
-
-"""Skip for now"""
-
-######################################################################################################
 # #Problem 58
 # #Reconstructing Edit Distance
 
@@ -552,5 +546,40 @@ It is very clever in a few different ways."""
 
 ######################################################################################################
 # #Problem 62
-# #Finding the Longest Multiple Repeat
+# #Constructing a De Bruijn Graph
+import os
 
+with open("./Rosalind_files/rosalind_dbru.txt", 'r') as file:
+    reads = [line.strip() for line in file.readlines()]
+
+def rev_comp(read):
+    complement = {"A":"T", "T":"A", "C":"G", "G":"C"}
+    return ''.join(complement[base] for base in reversed(read))
+
+revs = []
+for x in reads:
+    revs.append(rev_comp(x))
+
+reads = set(reads)
+revs = set(revs)
+combined = reads.union(revs)
+
+combined = list(combined)
+
+answer = []
+
+for x in combined:
+    front = x[:len(x)-1]
+    back = x[1::]
+    paired = ', '.join([front, back])
+    answer.append(paired)
+
+folder_path = './Rosalind_files/dbru_output'
+# Create the folder if it doesn't already exist
+os.makedirs(folder_path, exist_ok=True)
+# Define the full path for the new file within the new subfolder
+file_path = os.path.join(folder_path, 'output_dbru.txt')
+
+with open(file_path, "w") as f:
+    for pair in answer:
+        print("({})".format(pair), file=f)
